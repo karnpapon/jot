@@ -3,10 +3,16 @@ import { Go } from "./go.js";
 import { Navi } from "./navi.js";
 import { Stats } from "./stat.js";
 import { Reader } from "./reader.js";
+import { Toolbar } from "./toolbar.js";
 import { Dictionary } from "./dictionary.js";
+import { Insert } from "./insert.js";
+import { Controller } from "./lib/controller.js";
 import { Theme } from "./lib/theme.js";
 
 const EOL = "\n";
+
+const { shell } = window.__TAURI__;
+const { open } = shell;
 
 export function Left() {
   this.textarea_el = document.createElement("textarea");
@@ -15,22 +21,25 @@ export function Left() {
 
   this.init = function () {
     this.theme = new Theme({
-      background: "#dad7cd",
-      f_high: "#696861",
-      f_med: "#ff5c01",
-      f_low: "#b3b2ac",
-      f_inv: "#43423e",
-      b_high: "#43423e",
-      b_med: "#c2c1bb",
-      b_low: "#e5e3dc",
-      b_inv: "#eb3f48",
+      background: "#EDEAEA",
+      f_high: "#393B3F",
+      f_med: "#808790",
+      f_low: "#A3A3A4",
+      f_inv: "#000000",
+      b_high: "#333333",
+      b_med: "#777777",
+      b_low: "#DDDDDD",
+      b_inv: "#ffffff",
     });
+    this.controller = new Controller();
     this.project = new Project();
     this.go = new Go();
     this.navi = new Navi();
     this.dictionary = new Dictionary();
     this.stats = new Stats();
     this.reader = new Reader();
+    this.insert = new Insert();
+    this.toolbar = new Toolbar();
 
     this.autoindent = true;
     this.selection = { word: null, index: 1 };
@@ -38,10 +47,11 @@ export function Left() {
 
   this.install = function (host = document.body) {
     this.navi.install(host);
-    this.stats.install(host);
 
     host.appendChild(this.textarea_el);
     host.appendChild(this.drag_el);
+
+    this.toolbar.install(document.body, this.stats);
     // host.className = window.location.hash.replace("#", "");
 
     this.textarea_el.setAttribute("autocomplete", "off");
@@ -192,10 +202,38 @@ export function Left() {
     return this.textarea_el.value.substr(from, length);
   };
 
+  this.inject = function (characters = "__") {
+    const pos = this.textarea_el.selectionStart;
+    this.textarea_el.setSelectionRange(pos, pos);
+    document.execCommand("insertText", false, characters);
+    this.update();
+  };
+
+  this.inject_line = (characters = "__") => {
+    this.select_line(this.active_line_id());
+    this.inject(characters);
+  };
+
+  this.prev_character = () => {
+    const l = this.active_word_location();
+    return this.textarea_el.value.substr(l.from - 1, 1);
+  };
+
   this.reset = () => {
     this.theme.reset();
     // this.font.reset()
     this.update();
+  };
+
+  this.open_url = function (target = this.active_url()) {
+    if (!target) {
+      return;
+    }
+
+    this.select_word(target);
+    setTimeout(async () => {
+      await open(target);
+    }, 500);
   };
 
   this.toggle_autoindent = () => {

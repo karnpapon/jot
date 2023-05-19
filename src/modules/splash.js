@@ -38,11 +38,8 @@ You can quickly insert or transform text by activating the Insert Mode with <c-i
 
 ## Extras
 
-View sources: https://github.com/hundredrabbits/left
+View sources: https://github.com/karnpapon/xxxx
 
--- Themes
-
-Download additional themes: http://hundredrabbits.itch.io/Left
 `
   );
 

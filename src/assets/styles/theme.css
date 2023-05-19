@@ -1,7 +1,7 @@
 body { background:var(--background); color:var(--f_high) !important; }
 textarea { color:var(--f_high) !important }
 stats { color:var(--f_low) !important }
-stats b { color:var(--f_high) !important }
+stats b { color:var(--f_high) !important;  }
 stats i { color:var(--f_med) !important }
 highlight b { border-bottom: 1px solid var(--f_low) !important; }
 ::selection { background:var(--b_low) !important; color:var(--f_high) !important }
@@ -22,6 +22,6 @@ body #operator { background:var(--background); color:var(--f_high); }
 body #theme_button_icon { border-color: var(--f_med) !important }
 body #theme_button_icon_fg { background-color: var(--f_med) !important }
 
-.fh { color:var(--f_high) !important; }
+.fh { color:var(--f_high) !important; margin-left: 15px; margin-right: 15px; }
 .fm { color:var(--f_med) !important; }
 .fl { color:var(--f_low) !important; }
