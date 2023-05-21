@@ -1,5 +1,7 @@
 export function Navi() {
   this.el = document.createElement("navi");
+  this.child_el = document.createElement("div");
+  this.el.appendChild(this.child_el);
 
   this.install = function (host) {
     host.appendChild(this.el);
@@ -9,13 +11,13 @@ export function Navi() {
     let html = "";
     const current = this.marker();
 
-    for (const pid in left.project.pages) {
-      const page = left.project.pages[pid];
+    for (const pid in jot.project.pages) {
+      const page = jot.project.pages[pid];
       if (!page) {
         continue;
       }
       html += `<ul class="${
-        left.project.index === parseInt(pid) ? "active" : ""
+        jot.project.index === parseInt(pid) ? "active" : ""
       }">`;
       html += await this._page(parseInt(pid), page);
       html += '<div class="marker-wrapper">';
@@ -27,47 +29,51 @@ export function Navi() {
       html += "</div>";
       html += "</ul>";
     }
-    this.el.innerHTML = html;
+    this.child_el.innerHTML = html;
   };
 
   this._page = async function (id, page) {
     let _has_change = await page.has_changes();
     return `<li class='page ${
       _has_change ? "changes" : ""
-    }' onclick='left.go.to_page(${id})'>${page.name()}</li>`;
+    }' onclick='jot.go.to_page(${id})'>${page.name()}</li>`;
   };
 
   this._marker = function (pid, current, marker, markers) {
     return `<li class='marker ${marker.type} ${
-      current && current.line === marker.line ? "active" : ""
-    }' onclick='left.go.to_page(${pid}, ${marker.line})'><span>${
+      current &&
+      current.line === marker.line &&
+      parseInt(pid) === parseInt(jot.project.index)
+        ? "active"
+        : ""
+    }' onclick='jot.go.to_page(${pid}, ${marker.line})'><span>${
       marker.text
     }</span></li>`;
   };
 
   this.next_page = function () {
     const page = clamp(
-      parseInt(left.project.index) + 1,
+      parseInt(jot.project.index) + 1,
       0,
-      left.project.pages.length - 1
+      jot.project.pages.length - 1
     );
-    left.go.to_page(page, 0);
+    jot.go.to_page(page, 0);
   };
 
   this.prev_page = function () {
     const page = clamp(
-      parseInt(left.project.index) - 1,
+      parseInt(jot.project.index) - 1,
       0,
-      left.project.pages.length - 1
+      jot.project.pages.length - 1
     );
-    left.go.to_page(page, 0);
+    jot.go.to_page(page, 0);
   };
 
   this.next_marker = function () {
     const page = clamp(
-      parseInt(left.project.index),
+      parseInt(jot.project.index),
       0,
-      left.project.pages.length - 1
+      jot.project.pages.length - 1
     );
     const marker = this.marker();
 
@@ -75,17 +81,17 @@ export function Navi() {
       return;
     }
 
-    const markers = left.project.page().markers();
+    const markers = jot.project.page().markers();
     const nextIndex = clamp(marker.id + 1, 0, markers.length - 1);
 
-    left.go.to_page(page, markers[nextIndex].line);
+    jot.go.to_page(page, markers[nextIndex].line);
   };
 
   this.prev_marker = function () {
     const page = clamp(
-      parseInt(left.project.index),
+      parseInt(jot.project.index),
       0,
-      left.project.pages.length - 1
+      jot.project.pages.length - 1
     );
     const marker = this.marker();
 
@@ -93,19 +99,19 @@ export function Navi() {
       return;
     }
 
-    const markers = left.project.page().markers();
+    const markers = jot.project.page().markers();
     const nextIndex = clamp(marker.id - 1, 0, markers.length - 1);
 
-    left.go.to_page(page, markers[nextIndex].line);
+    jot.go.to_page(page, markers[nextIndex].line);
   };
 
   this.marker = function () {
-    if (!left.project.page()) {
+    if (!jot.project.page()) {
       return [];
     }
 
-    const markers = left.project.page().markers();
-    const pos = left.active_line_id();
+    const markers = jot.project.page().markers();
+    const pos = jot.active_line_id();
 
     if (markers.length < 1) {
       return;
@@ -121,19 +127,19 @@ export function Navi() {
   };
 
   this.on_scroll = function () {
-    const scrollDistance = left.textarea_el.scrollTop;
+    const scrollDistance = jot.textarea_el.scrollTop;
     const scrollMax =
-      left.textarea_el.scrollHeight - left.textarea_el.offsetHeight;
+      jot.textarea_el.scrollHeight - jot.textarea_el.offsetHeight;
     const scrollPerc = Math.min(
       1,
       scrollMax === 0 ? 0 : scrollDistance / scrollMax
     );
     const naviOverflowPerc = Math.max(
       0,
-      left.navi.el.scrollHeight / window.innerHeight - 1
+      jot.navi.el.scrollHeight / window.innerHeight - 1
     );
 
-    left.navi.el.style.transform =
+    jot.navi.el.style.transform =
       "translateY(" + -100 * scrollPerc * naviOverflowPerc + "%)";
   };
 

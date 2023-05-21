@@ -22,6 +22,6 @@ body #operator { background:var(--background); color:var(--f_high); }
 body #theme_button_icon { border-color: var(--f_med) !important }
 body #theme_button_icon_fg { background-color: var(--f_med) !important }
 
-.fh { color:var(--f_high) !important; margin-left: 15px; margin-right: 15px; }
+.fh { color:var(--f_high) !important; margin-jot: 15px; margin-right: 15px; }
 .fm { color:var(--f_med) !important; }
 .fl { color:var(--f_low) !important; }

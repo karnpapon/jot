@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "texteditor",
+    "productName": "jot",
     "version": "0.0.0"
   },
   "tauri": {

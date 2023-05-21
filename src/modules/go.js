@@ -2,26 +2,24 @@ const EOL = "\n";
 
 export function Go() {
   this.to_page = function (id = 0, line = 0) {
-    left.project.index = clamp(parseInt(id), 0, left.project.pages.length - 1);
+    jot.project.index = clamp(parseInt(id), 0, jot.project.pages.length - 1);
 
-    console.log(
-      `Go to page:${left.project.index}/${left.project.pages.length}`
-    );
+    console.log(`Go to page:${jot.project.index}/${jot.project.pages.length}`);
 
-    const page = left.project.page();
+    const page = jot.project.page();
 
     if (!page) {
       console.warn("Missing page", this.index);
       return;
     }
 
-    left.load(page.text);
-    left.go.to_line(line);
-    left.update();
+    jot.load(page.text);
+    jot.go.to_line(line);
+    jot.update();
   };
 
   this.to_line = function (id) {
-    const lineArr = left.textarea_el.value.split(EOL, parseInt(id) + 1);
+    const lineArr = jot.textarea_el.value.split(EOL, parseInt(id) + 1);
     const arrJoin = lineArr.join(EOL);
     const from = arrJoin.length - lineArr[id].length;
     const to = arrJoin.length;
@@ -30,16 +28,16 @@ export function Go() {
   };
 
   this.to = function (from, to, scroll = true) {
-    if (left.textarea_el.setSelectionRange) {
-      left.textarea_el.setSelectionRange(from, to);
-    } else if (left.textarea_el.createTextRange) {
-      const range = left.textarea_el.createTextRange();
+    if (jot.textarea_el.setSelectionRange) {
+      jot.textarea_el.setSelectionRange(from, to);
+    } else if (jot.textarea_el.createTextRange) {
+      const range = jot.textarea_el.createTextRange();
       range.collapse(true);
       range.moveEnd("character", to);
       range.moveStart("character", from);
       range.select();
     }
-    left.textarea_el.focus();
+    jot.textarea_el.focus();
 
     if (scroll) {
       this.scroll_to(from, to);
@@ -49,7 +47,7 @@ export function Go() {
   };
 
   this.to_next = function (str, scroll = true) {
-    const ta = left.textarea_el;
+    const ta = jot.textarea_el;
     const text = ta.value;
     const range = text.substr(
       ta.selectionStart,
@@ -60,11 +58,11 @@ export function Go() {
   };
 
   this.scroll_to = function (from, to) {
-    const textVal = left.textarea_el.value;
+    const textVal = jot.textarea_el.value;
     const div = document.createElement("div");
     div.innerHTML = textVal.slice(0, to);
     document.body.appendChild(div);
-    animateScrollTo(left.textarea_el, div.offsetHeight - 60, 200);
+    animateScrollTo(jot.textarea_el, div.offsetHeight - 60, 200);
     div.remove();
   };
 
@@ -78,7 +76,7 @@ export function Go() {
       currentTime += increment;
       const val = Math.easeInOutQuad(currentTime, start, change, duration);
       element.scrollTop = val;
-      // if (!left.reader.active) left.stats.on_scroll();
+      // if (!jot.reader.active) jot.stats.on_scroll();
       if (currentTime < duration) {
         requestAnimationFrame(animate, increment);
       }

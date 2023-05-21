@@ -1,44 +1,44 @@
-import { Left } from "/modules/app.js";
+import { Jot } from "/modules/app.js";
 import TextHighlight from "/modules/lib/texthighlighter.js";
 import TextareaEditor from "/modules/lib/toolbar-editor.js";
 
-const left = new Left();
-window.left = left;
-left.init();
-left.install(document.body);
-left.start();
+const jot = new Jot();
+window.jot = jot;
+jot.init();
+jot.install(document.body);
+jot.start();
 
 window.addEventListener("load", () => {
   const { event } = window.__TAURI__;
   const { listen } = event;
 
   // var vim = new VIM();
-  // vim.attach_to(left.textarea_el);
+  // vim.attach_to(jot.textarea_el);
 
-  listen("menu-file-new", ({ _ }) => left.project.new());
-  listen("menu-file-save", ({ _ }) => left.project.save());
-  listen("menu-file-open", ({ _ }) => left.project.open());
-  listen("menu-file-find", ({ _ }) => left.toggle_find());
+  listen("menu-file-new", ({ _ }) => jot.project.new());
+  listen("menu-file-save", ({ _ }) => jot.project.save());
+  listen("menu-file-open", ({ _ }) => jot.project.open());
+  listen("menu-file-find", ({ _ }) => jot.toggle_find());
 
-  listen("view-nav-toggle", ({ _ }) => left.navi.toggle());
+  listen("view-nav-toggle", ({ _ }) => jot.navi.toggle());
 
-  listen("mode-insert", ({ _ }) => left.insert.start());
+  listen("mode-insert", ({ _ }) => jot.insert.start());
 
-  listen("mode-insert-date", ({ _ }) => left.insert.date());
-  listen("mode-insert-time", ({ _ }) => left.insert.time());
-  listen("mode-insert-path", ({ _ }) => left.insert.path());
-  listen("mode-insert-header", ({ _ }) => left.insert.header());
-  listen("mode-insert-subheader", ({ _ }) => left.insert.subheader());
-  listen("mode-insert-comment", ({ _ }) => left.insert.comment());
-  listen("mode-insert-stop", ({ _ }) => left.insert.stop());
+  listen("mode-insert-date", ({ _ }) => jot.insert.date());
+  listen("mode-insert-time", ({ _ }) => jot.insert.time());
+  listen("mode-insert-path", ({ _ }) => jot.insert.path());
+  listen("mode-insert-header", ({ _ }) => jot.insert.header());
+  listen("mode-insert-subheader", ({ _ }) => jot.insert.subheader());
+  listen("mode-insert-comment", ({ _ }) => jot.insert.comment());
+  listen("mode-insert-stop", ({ _ }) => jot.insert.stop());
 
-  listen("select-open-url", ({ _ }) => left.open_url());
+  listen("select-open-url", ({ _ }) => jot.open_url());
 });
 
-const hilite = new TextHighlight(left.textarea_el);
+const hilite = new TextHighlight(jot.textarea_el);
 window.hilite = hilite;
 const toolbar = document.querySelector(".toolbar");
-const editor = new TextareaEditor(left.textarea_el);
+const editor = new TextareaEditor(jot.textarea_el);
 
 toolbar.addEventListener("mousedown", (e) => e.preventDefault());
 

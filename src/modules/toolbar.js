@@ -29,7 +29,7 @@ export function Toolbar() {
     '<li><button type="button" data-command="subHead">--</button></li>';
   this.toolbar_orderedList = document.createElement("li");
   this.toolbar_orderedList.innerHTML =
-    '<li><button type="button" data-command="orderedList">X.</button></li>';
+    '<li><button type="button" data-command="orderedList">1.</button></li>';
   this.toolbar_tasklist = document.createElement("li");
   this.toolbar_tasklist.innerHTML =
     '<li><button type="button" data-command="taskList">[]</button></li>';

@@ -1,5 +1,5 @@
 import { Page } from "./page.js";
-import { Splash } from "./splash.js";
+import { Helper } from "./helper.js";
 const { dialog, fs, invoke } = window.__TAURI__;
 const { BaseDirectory } = fs;
 
@@ -11,26 +11,26 @@ export function Project() {
 
   this.start = function () {
     // Load previous files
-    // if (localStorage.hasOwnProperty("paths")) {
-    //   if (isJSON(localStorage.getItem("paths"))) {
-    //     const paths = JSON.parse(localStorage.getItem("paths"));
-    //     for (const id in paths) {
-    //       left.project.add(paths[id]);
-    //     }
-    //   }
-    // }
+    if (localStorage.hasOwnProperty("paths")) {
+      if (isJSON(localStorage.getItem("paths"))) {
+        const paths = JSON.parse(localStorage.getItem("paths"));
+        for (const id in paths) {
+          jot.project.add(paths[id]);
+        }
+      }
+    }
 
-    // Add splash
+    // Add Helper
     if (this.pages.length === 0) {
-      left.project.pages.push(new Splash());
-      left.go.to_page(0);
+      jot.project.pages.push(new Helper());
+      jot.go.to_page(0);
     }
   };
 
   this.add = async function (path = null) {
     console.log(`Adding page(${path})`);
 
-    this.remove_splash();
+    this.remove_Helper();
 
     let page = new Page();
 
@@ -51,9 +51,9 @@ export function Project() {
     }
 
     this.pages.push(page);
-    left.go.to_page(this.pages.length - 1);
+    jot.go.to_page(this.pages.length - 1);
 
-    // localStorage.setItem("paths", JSON.stringify(this.paths()));
+    localStorage.setItem("paths", JSON.stringify(this.paths()));
   };
 
   this.page = function () {
@@ -66,7 +66,7 @@ export function Project() {
       return;
     }
 
-    this.page().commit(left.textarea_el.value);
+    this.page().commit(jot.textarea_el.value);
   };
 
   this.load = async function (path) {
@@ -86,11 +86,11 @@ export function Project() {
     console.log("New Page");
 
     this.add();
-    left.reload();
+    jot.reload();
 
     setTimeout(() => {
-      left.navi.next_page();
-      left.textarea_el.focus();
+      jot.navi.next_page();
+      jot.textarea_el.focus();
     }, 200);
   };
 
@@ -117,8 +117,8 @@ export function Project() {
     }
 
     setTimeout(() => {
-      left.navi.next_page();
-      left.update();
+      jot.navi.next_page();
+      jot.update();
     }, 200);
   };
 
@@ -138,9 +138,9 @@ export function Project() {
         console.log(err);
         return;
       }
-      left.update();
+      jot.update();
       setTimeout(() => {
-        left.stats.el.innerHTML = `<b>Saved</b> ${page.path}`;
+        jot.stats.el.innerHTML = `<b>Saved</b> ${page.path}`;
       }, 200);
     });
   };
@@ -168,11 +168,11 @@ export function Project() {
         if (!page.path) {
           page.path = path;
         } else if (page.path !== path) {
-          left.project.pages.push(new Page(page.text, path));
+          jot.project.pages.push(new Page(page.text, path));
         }
-        left.update();
+        jot.update();
         setTimeout(() => {
-          left.stats.el.innerHTML = `<b>Saved</b> ${page.path}`;
+          jot.stats.el.innerHTML = `<b>Saved</b> ${page.path}`;
         }, 200);
       })
       .catch((err) => {
@@ -199,7 +199,7 @@ export function Project() {
     //   }
     // }
     this.force_close();
-    // localStorage.setItem("paths", JSON.stringify(this.paths()));
+    localStorage.setItem("paths", JSON.stringify(this.paths()));
   };
 
   this.force_close = function () {
@@ -211,7 +211,7 @@ export function Project() {
     console.log("Closing..");
 
     this.pages.splice(this.index, 1);
-    left.go.to_page(this.index - 1);
+    jot.go.to_page(this.index - 1);
   };
 
   this.discard = function () {
@@ -224,7 +224,7 @@ export function Project() {
     // });
     if (response === 0) {
       // Runs the following if 'Yes' is clicked
-      left.reload(true);
+      jot.reload(true);
     }
   };
 
@@ -258,10 +258,10 @@ export function Project() {
     // }
   };
 
-  this.remove_splash = function () {
+  this.remove_Helper = function () {
     for (const id in this.pages) {
       const page = this.pages[id];
-      if (page.text === new Splash().text) {
+      if (page.text === new Helper().text) {
         this.pages.splice(0, 1);
         return;
       }

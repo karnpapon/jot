@@ -3,7 +3,6 @@ import { Go } from "./go.js";
 import { Navi } from "./navi.js";
 import { Stats } from "./stat.js";
 import { Toolbar } from "./toolbar.js";
-import { Dictionary } from "./dictionary.js";
 import { Insert } from "./insert.js";
 import { Find } from "./find.js";
 import { Operator } from "./operator.js";
@@ -15,7 +14,7 @@ const EOL = "\n";
 const { shell } = window.__TAURI__;
 const { open } = shell;
 
-export function Left() {
+export function Jot() {
   this.textarea_el = document.createElement("textarea");
   this.drag_el = document.createElement("drag");
   this.drag_el.setAttribute("data-tauri-drag-region", "");
@@ -40,7 +39,6 @@ export function Left() {
     this.project = new Project();
     this.go = new Go();
     this.navi = new Navi();
-    this.dictionary = new Dictionary();
     this.stats = new Stats();
     this.insert = new Insert();
     this.toolbar = new Toolbar();
@@ -90,11 +88,9 @@ export function Left() {
     this.theme.load(this.theme.active);
     this.project.start();
     this.go.to_page();
-    this.dictionary.start();
 
     this.textarea_el.focus();
     this.textarea_el.setSelectionRange(0, 0);
-    this.dictionary.update();
     this.update();
   };
 
@@ -105,11 +101,6 @@ export function Left() {
     );
 
     this.selection.word = this.active_word();
-    this.suggestion =
-      nextChar === "" || nextChar === " " || nextChar === EOL
-        ? this.dictionary.find_suggestion(this.selection.word)
-        : null;
-    this.synonyms = this.dictionary.find_synonym(this.selection.word);
     this.selection.url = this.active_url();
 
     this.navi.update();

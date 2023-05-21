@@ -1126,7 +1126,7 @@ var __alter_selection = function (vim, cdata, func) {
   xs = expand_to_line_start(vim.get_text(), xs);
   var g = cut_with(vim.get_text(), xs);
   g.mid = func(g.mid);
-  var new_text = g.left + g.mid + g.right;
+  var new_text = g.jot + g.mid + g.right;
   vim.set_text(new_text);
   vim.set_pos(xs[0] + count_space_from(new_text, xs[0]));
 };
@@ -1141,7 +1141,7 @@ var cut_with = function (text, range) {
   var pos = range[0],
     len = range[1];
   return {
-    left: text.substr(0, pos),
+    jot: text.substr(0, pos),
     mid: text.substr(pos, len),
     right: text.substr(pos + len),
   };

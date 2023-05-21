@@ -28,10 +28,10 @@ export function Page(text = "", path = null) {
     const _ret = await this.load();
     const ret = _ret !== this.text;
 
-    // was this change done outside Left?
+    // was this change done outside Jot?
     if (ret && last_size !== this.size && this.watchdog) {
       const response = dialog
-        .message("File was modified outside Left. Do you want to reload it?", {
+        .message("File was modified outside Jot. Do you want to reload it?", {
           type: "info",
           title: "Confirm",
           // detail: `New size of file is: ${this.size} bytes.`,
@@ -39,7 +39,7 @@ export function Page(text = "", path = null) {
         .then(async (res) => {
           if (response === 0) {
             this.commit(await this.load());
-            left.reload();
+            jot.reload();
             return !ret; // return false as it was reloaded
           } else if (response === 2) this.watchdog = !this.watchdog;
         });
@@ -47,7 +47,7 @@ export function Page(text = "", path = null) {
     return ret;
   };
 
-  this.commit = function (text = left.textarea_el.value) {
+  this.commit = function (text = jot.textarea_el.value) {
     this.text = text;
   };
 
@@ -103,21 +103,21 @@ export function Page(text = "", path = null) {
     const lines = this.text.split(EOL);
     for (const id in lines) {
       const line = lines[id].trim();
-      if (line.substr(0, 2) === "##") {
+      if (line.substring(0, 2) === "##") {
         a.push({
           id: a.length,
           text: line.replace("##", "").trim(),
           line: parseInt(id),
           type: "subheader",
         });
-      } else if (line.substr(0, 1) === "#") {
+      } else if (line.substring(0, 1) === "#") {
         a.push({
           id: a.length,
           text: line.replace("#", "").trim(),
           line: parseInt(id),
           type: "header",
         });
-      } else if (line.substr(0, 2) === "--") {
+      } else if (line.substring(0, 2) === "--") {
         a.push({
           id: a.length,
           text: line.replace("--", "").trim(),

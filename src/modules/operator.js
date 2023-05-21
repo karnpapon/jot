@@ -7,10 +7,10 @@ export function Operator() {
   this.index = 0;
 
   this.el.addEventListener("keyup", (e) => {
-    left.operator.on_change(e, false);
+    jot.operator.on_change(e, false);
   });
   this.el.addEventListener("keydown", (e) => {
-    left.operator.on_change(e, true);
+    jot.operator.on_change(e, true);
   });
 
   this.install = function (host) {
@@ -19,15 +19,15 @@ export function Operator() {
 
   this.start = function (f = "") {
     console.log("started");
-    left.controller.set("operator");
+    jot.controller.set("operator");
     this.is_active = true;
 
-    left.textarea_el.blur();
+    jot.textarea_el.blur();
     this.el.value = f;
     this.el.focus();
 
     this.update();
-    left.update();
+    jot.update();
   };
 
   this.update = function () {
@@ -46,15 +46,15 @@ export function Operator() {
     }
 
     console.log("stopped");
-    left.controller.set("default");
+    jot.controller.set("default");
     this.is_active = false;
 
     this.el.value = "";
     this.el.blur();
-    left.textarea_el.focus();
+    jot.textarea_el.focus();
 
     this.update();
-    left.update();
+    jot.update();
   };
 
   this.on_change = function (e, down = false) {
@@ -125,13 +125,13 @@ export function Operator() {
       return;
     }
 
-    const results = left.find(q);
+    const results = jot.find(q);
 
     if (results.length < 1) {
       return;
     }
 
-    const from = left.textarea_el.selectionStart;
+    const from = jot.textarea_el.selectionStart;
     let result = 0;
     for (const id in results) {
       result = results[id];
@@ -141,16 +141,16 @@ export function Operator() {
     }
 
     // Found final occurence, start from the top
-    if (result === left.textarea_el.selectionStart) {
-      left.textarea_el.setSelectionRange(0, 0);
+    if (result === jot.textarea_el.selectionStart) {
+      jot.textarea_el.setSelectionRange(0, 0);
       this.find(q, true);
       return;
     }
 
     if (bang && result) {
-      left.go.to(result, result + q.length);
+      jot.go.to(result, result + q.length);
       setTimeout(() => {
-        left.operator.stop();
+        jot.operator.stop();
       }, 250);
     }
   };
@@ -170,13 +170,13 @@ export function Operator() {
       return;
     }
 
-    const results = left.find(a);
+    const results = jot.find(a);
 
     if (results.length < 1) {
       return;
     }
 
-    const from = left.textarea_el.selectionStart;
+    const from = jot.textarea_el.selectionStart;
     let result = 0;
     for (const id in results) {
       result = results[id];
@@ -186,9 +186,9 @@ export function Operator() {
     }
 
     if (bang) {
-      left.go.to(result, result + a.length);
+      jot.go.to(result, result + a.length);
       setTimeout(() => {
-        left.replace_selection_with(b);
+        jot.replace_selection_with(b);
       }, 500);
       this.stop();
     }
@@ -197,7 +197,7 @@ export function Operator() {
   this.goto = function (q, bang = false) {
     const target = parseInt(q, 10);
 
-    const linesCount = left.textarea_el.value.split(EOL).length - 1;
+    const linesCount = jot.textarea_el.value.split(EOL).length - 1;
 
     if (q === "" || target < 1 || target > linesCount || Number.isNaN(target)) {
       return;
@@ -205,7 +205,7 @@ export function Operator() {
 
     if (bang) {
       this.stop();
-      left.go.to_line(target);
+      jot.go.to_line(target);
     }
   };
 }
