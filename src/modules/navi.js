@@ -20,7 +20,9 @@ export function Navi() {
         jot.project.index === parseInt(pid) ? "active" : ""
       }">`;
       html += await this._page(parseInt(pid), page);
-      html += '<div class="marker-wrapper">';
+      html += `<div class="marker-wrapper ${
+        jot.project.index === parseInt(pid) ? "" : "hide"
+      }">`;
       const markers = page.markers();
       for (const i in markers) {
         const marker = markers[i];

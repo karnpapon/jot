@@ -13,7 +13,7 @@ export function Go() {
       return;
     }
 
-    jot.load(page.text);
+    jot.load(page.text, page.disabled);
     jot.go.to_line(line);
     jot.update();
   };

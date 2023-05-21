@@ -21,6 +21,9 @@ export function Toolbar() {
   this.toolbar_header2 = document.createElement("li");
   this.toolbar_header2.innerHTML =
     '<li><button type="button" data-command="header2">##</button></li>';
+  this.toolbar_header3 = document.createElement("li");
+  this.toolbar_header3.innerHTML =
+    '<li><button type="button" data-command="header3">###</button></li>';
   this.toolbar_unorderedList = document.createElement("li");
   this.toolbar_unorderedList.innerHTML =
     '<li><button type="button" data-command="unorderedList">-</button></li>';
@@ -47,6 +50,7 @@ export function Toolbar() {
     // this.toolbar_el.appendChild(this.toolbar_image);
     this.toolbar_el.appendChild(this.toolbar_header1);
     this.toolbar_el.appendChild(this.toolbar_header2);
+    this.toolbar_el.appendChild(this.toolbar_header3);
     this.toolbar_el.appendChild(this.toolbar_unorderedList);
     this.toolbar_el.appendChild(this.toolbar_unorderedList2);
     this.toolbar_el.appendChild(this.toolbar_orderedList);

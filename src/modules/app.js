@@ -92,6 +92,8 @@ export function Jot() {
     this.textarea_el.focus();
     this.textarea_el.setSelectionRange(0, 0);
     this.update();
+
+    console.log("project", this.project.pages);
   };
 
   this.update = (hard = false) => {
@@ -110,11 +112,16 @@ export function Jot() {
 
   this.reload = function (force = false) {
     this.project.page().reload(force);
-    this.load(this.project.page().text);
+    this.load(this.project.page().text, this.project.page().disabled);
   };
 
-  this.load = function (text) {
+  this.load = function (text, disabled = false) {
     this.textarea_el.value = text || "";
+    if (disabled) {
+      this.textarea_el.setAttribute("disabled", "");
+    } else {
+      this.textarea_el.removeAttribute("disabled", "");
+    }
     this.update();
   };
 

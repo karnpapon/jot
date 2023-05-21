@@ -17,7 +17,7 @@ eg.
 
 - `# header marker`
 - `## sub-header marker`
-- `-- comment marker`
+- `### marker`
 
 # build
 

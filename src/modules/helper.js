@@ -6,37 +6,38 @@ export function Helper() {
     `Jot is a simple writing tool focus on writing, no fancy viewer no image-embed no mind-map, etc.
 
 # Usages
-marker will be created by #, ## or --.
+marker will be created by #, ## or ###.
 
 eg. 
 # header marker
 ## sub-header marker
--- comment marker
+### marker
 
 ## Shortcuts
-- Cmd+o : open file
-- Cmd+n : new file
-- Cmd+s : save file
-- Cmd+f : find text
-- Cmd+' : toggle navigator
-- Cmd+b : open url
-- Cmd+[ : move to previous marker
-- Cmd+] : move to next marker
+- Cmd+o : 📁 open file
+- Cmd+n : 📝 new file
+- Cmd+s : 💾 save file
+- Cmd+f : 🔍 find text
+- Cmd+' : 👁 toggle navigator
+- Cmd+b : 🌎 open url
+- Cmd+[ : ← move to previous marker
+- Cmd+] : → move to next marker
 
 ## Inserts
-- Cmd+d : Date
-- Cmd+t : Time
-- Cmd+p : Path
-- Cmd+h : Header [*]
-- Cmd+H : Sub-Header [*]
-- Cmd+/ : Comment [*]
+- Cmd+d : 📅 Date 
+- Cmd+t : 🕐 Time 
+- Cmd+h : Header¹
+- Cmd+H : Sub-Header¹
+- Cmd+/ : Comment¹
 
-[*] will create marker at navigator
+¹will create marker at navigator
 
 View sources: https://github.com/karnpapon/jot
 
 `
   );
+
+  this.disabled = true;
 
   this.name = function () {
     return "Helper";

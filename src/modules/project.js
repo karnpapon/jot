@@ -5,7 +5,6 @@ const { BaseDirectory } = fs;
 
 export function Project() {
   this.pages = [];
-
   this.index = 0;
   this.original = "";
 
@@ -30,7 +29,7 @@ export function Project() {
   this.add = async function (path = null) {
     console.log(`Adding page(${path})`);
 
-    this.remove_helper();
+    // this.remove_helper();
 
     let page = new Page();
 

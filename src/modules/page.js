@@ -6,6 +6,7 @@ export function Page(text = "", path = null) {
   this.path = path;
   this.size = 0;
   this.watchdog = true;
+  this.disabled = false;
 
   this.name = function () {
     if (!this.path) {
@@ -103,7 +104,14 @@ export function Page(text = "", path = null) {
     const lines = this.text.split(EOL);
     for (const id in lines) {
       const line = lines[id].trim();
-      if (line.substring(0, 2) === "##") {
+      if (line.substring(0, 3) === "###") {
+        a.push({
+          id: a.length,
+          text: line.replace("###", "").trim(),
+          line: parseInt(id),
+          type: "h3",
+        });
+      } else if (line.substring(0, 2) === "##") {
         a.push({
           id: a.length,
           text: line.replace("##", "").trim(),
@@ -116,13 +124,6 @@ export function Page(text = "", path = null) {
           text: line.replace("#", "").trim(),
           line: parseInt(id),
           type: "header",
-        });
-      } else if (line.substring(0, 2) === "--") {
-        a.push({
-          id: a.length,
-          text: line.replace("--", "").trim(),
-          line: parseInt(id),
-          type: "comment",
         });
       }
     }

@@ -25,8 +25,8 @@ body navi > div li.note { padding-left:15px;}
 body navi > div li.note::before { content:"#"; left:0px; }
 body navi > div li.subheader { padding-left: 20px;}
 body navi > div li.subheader::before { content:""; left:0px; }
-body navi > div li.comment { padding-left: 30px;}
-body navi > div li.comment::before { content:""; left:0px; }
+body navi > div li.h3 { padding-left: 30px;}
+body navi > div li.h3::before { content:""; left:0px; }
 body navi > div li.changes::after { content:"*"; position: absolute; right: 0; background-color: var(--background-color); width: 12%;}
 body navi > div li i { padding-right:15px; }
 body navi > div ul > div { width: auto; margin-left: 15px; }
@@ -48,14 +48,14 @@ body navi > div > ul > * {
   /* position: absolute; */
   /* left: 0; */
 }
-/* body navi > div > ul li.marker { display: none } */
+body navi > div > ul.active li.page { color: black !important; }
 body navi > div > ul li.page > div { margin-left: 15px;}
 body navi > div > ul li.marker, body navi > div > ul li.page > div { display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 body navi > div > ul li.page::before { content:"/"; }
 /* body navi > div > ul li.page {  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: auto;  } */
 body navi > div > ul.active li.marker.header.active::before { content: "#" }
 body navi > div > ul.active li.marker.subheader.active::before { content: "##"; margin-right: 2px; }
-body navi > div > ul.active li.marker.comment.active::before { content: "--"}
+body navi > div > ul.active li.marker.h3.active::before { content: "###"}
 /* body stats { display: block; border-bottom: 0; margin-top: 30px; position: fixed; top: 0; left: 25vw; line-height: 15px; width: calc(75vw - 40px); height: 40px; overflow: auto; -webkit-user-select: none; -webkit-app-region: drag; transition: left 200ms; } */
 body stats { display: flex; flex: 2; width: 100%; justify-content: flex-start; align-items: center; margin-left: 15px;}
 body stats i {text-decoration: underline; }
@@ -91,6 +91,8 @@ body #theme_button_icon { border: 1px solid white;width: 10px;height: 10px;posit
 body #theme_button_icon_fg { max-width: 20px; width: 20px;height: 6.5px;background: white;position: relative;left: -2px;top: -2px; transition: top 250ms; }
 body #theme_button.active #theme_button_icon_fg { top:5.5px; }
 body #theme_button:hover { opacity: 1 }
+
+.hide { display: none;}
 
 toolbar { 
   width: 100%;
