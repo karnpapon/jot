@@ -10,16 +10,25 @@ Jot (จด) is a simple writing tool focus on writing, no fancy viewer, no imag
 - writing-focus only
 - quick inserts
 
-# Usages
+# usages
 
 marker will be created by #, ## or --.
-
 eg.
-`# header marker`
-`## sub-header marker`
-`-- comment marker`
 
-## Shortcuts
+- `# header marker`
+- `## sub-header marker`
+- `-- comment marker`
+
+# build
+
+- `pnpm i`, install deps first
+- `pnpm run build`, built file will be located at `src-tauri/target/release/bundle/<depends-on-your-os>`
+
+# development
+
+- `pnpm run dev`
+
+## shortcuts
 
 - Cmd+o : open file
 - Cmd+n : new file
@@ -30,7 +39,7 @@ eg.
 - Cmd+[ : move to previous marker
 - Cmd+] : move to next marker
 
-## Inserts
+## inserts
 
 - Cmd+d : Date
 - Cmd+t : Time
