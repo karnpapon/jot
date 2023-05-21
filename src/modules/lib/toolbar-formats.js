@@ -12,8 +12,8 @@ const Formats = {
    */
 
   bold: {
-    prefix: '**',
-    suffix: '**'
+    prefix: "**",
+    suffix: "**",
   },
 
   /**
@@ -25,8 +25,8 @@ const Formats = {
    */
 
   italic: {
-    prefix: '_',
-    suffix: '_'
+    prefix: "_",
+    suffix: "_",
   },
 
   /**
@@ -38,8 +38,8 @@ const Formats = {
    */
 
   strikethrough: {
-    prefix: '~~',
-    suffix: '~~'
+    prefix: "~~",
+    suffix: "~~",
   },
 
   /**
@@ -52,14 +52,14 @@ const Formats = {
 
   link: {
     prefix: {
-      value: '[',
-      pattern: '\\[',
-      antipattern: '\\!\\['
+      value: "[",
+      pattern: "\\[",
+      antipattern: "\\!\\[",
     },
     suffix: {
       value: (text, n, url) => `](${url})`,
-      pattern: '\\]\\([^()]*?\\)'
-    }
+      pattern: "\\]\\([^()]*?\\)",
+    },
   },
 
   /**
@@ -71,11 +71,11 @@ const Formats = {
    */
 
   image: {
-    prefix: '![',
+    prefix: "![",
     suffix: {
       value: (text, n, url) => `](${url})`,
-      pattern: '\\]\\([^()]*?\\)'
-    }
+      pattern: "\\]\\([^()]*?\\)",
+    },
   },
 
   /**
@@ -88,10 +88,10 @@ const Formats = {
 
   header1: {
     prefix: {
-      value: '# ',
-      pattern: '# ',
-      antipattern: '[#]{2,} '
-    }
+      value: "# ",
+      pattern: "# ",
+      antipattern: "[#]{2,} ",
+    },
   },
 
   /**
@@ -104,10 +104,10 @@ const Formats = {
 
   header2: {
     prefix: {
-      value: '## ',
-      pattern: '## ',
-      antipattern: '[#]{3,} '
-    }
+      value: "## ",
+      pattern: "## ",
+      antipattern: "[#]{3,} ",
+    },
   },
 
   /**
@@ -120,10 +120,10 @@ const Formats = {
 
   header3: {
     prefix: {
-      value: '### ',
-      pattern: '### ',
-      antipattern: '[#]{4,} '
-    }
+      value: "### ",
+      pattern: "### ",
+      antipattern: "[#]{4,} ",
+    },
   },
 
   /**
@@ -136,10 +136,10 @@ const Formats = {
 
   header4: {
     prefix: {
-      value: '#### ',
-      pattern: '#### ',
-      antipattern: '[#]{5,} '
-    }
+      value: "#### ",
+      pattern: "#### ",
+      antipattern: "[#]{5,} ",
+    },
   },
 
   /**
@@ -152,10 +152,10 @@ const Formats = {
 
   header5: {
     prefix: {
-      value: '##### ',
-      pattern: '##### ',
-      antipattern: '[#]{6,} '
-    }
+      value: "##### ",
+      pattern: "##### ",
+      antipattern: "[#]{6,} ",
+    },
   },
 
   /**
@@ -168,10 +168,10 @@ const Formats = {
 
   header6: {
     prefix: {
-      value: '###### ',
-      pattern: '###### ',
-      antipattern: '[#]{7,} '
-    }
+      value: "###### ",
+      pattern: "###### ",
+      antipattern: "[#]{7,} ",
+    },
   },
 
   /**
@@ -184,8 +184,8 @@ const Formats = {
 
   code: {
     block: true,
-    prefix: '```\n',
-    suffix: '\n```'
+    prefix: "```\n",
+    suffix: "\n```",
   },
 
   /**
@@ -201,8 +201,8 @@ const Formats = {
     multiline: true,
     prefix: {
       value: (line, n) => `${n}. `,
-      pattern: '[0-9]+\\. '
-    }
+      pattern: "[0-9]+\\. ",
+    },
   },
 
   /**
@@ -216,7 +216,7 @@ const Formats = {
   unorderedList: {
     block: true,
     multiline: true,
-    prefix: '- '
+    prefix: "- ",
   },
 
   /**
@@ -231,9 +231,25 @@ const Formats = {
     block: true,
     multiline: true,
     prefix: {
-      value: '- [ ] ',
-      pattern: '- \\[[x ]{1}\\] '
-    }
+      value: "- [ ] ",
+      pattern: "- \\[[x ]{1}\\] ",
+    },
+  },
+
+  /**
+   * Sub Header.
+   *
+   * @example
+   * editor.format('subHead');
+   * assert(textarea.value == '-- Hello World')
+   */
+
+  subHead: {
+    block: true,
+    multiline: true,
+    prefix: {
+      value: "-- ",
+    },
   },
 
   /**
@@ -247,8 +263,8 @@ const Formats = {
   blockquote: {
     block: true,
     multiline: true,
-    prefix: '> '
-  }
+    prefix: "> ",
+  },
 };
 
 export default Formats;

@@ -1,6 +1,6 @@
 import { Left } from "/modules/app.js";
 import TextHighlight from "/modules/lib/texthighlighter.js";
-import TextareaEditor from "/modules/lib/editor.js";
+import TextareaEditor from "/modules/lib/toolbar-editor.js";
 
 const left = new Left();
 window.left = left;

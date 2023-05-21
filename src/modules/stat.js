@@ -126,13 +126,13 @@ export function Stats() {
     const scrollMax =
       left.textarea_el.scrollHeight - left.textarea_el.offsetHeight;
     const ratio = Math.min(1, scrollMax === 0 ? 0 : scrollDistance / scrollMax);
-    const progress = ["|", "|", "|", "|", "|", "|", "|", "|", "|", "|"]
+    const progress = ["░", "░", "░", "░", "░", "░", "░", "░", "░", "░"]
       .map((v, i) => {
-        return i < ratio * 10 ? "<b>|</b>" : v;
+        return i < ratio * 10 ? "<b>▒</b>" : v;
       })
       .join("");
 
-    this.el.innerHTML = `${progress} ${(ratio * 100).toFixed(2)}%`;
+    this.el.innerHTML = `${progress} &nbsp; ${(ratio * 100).toFixed(2)}%`;
   };
 
   function clamp(v, min, max) {

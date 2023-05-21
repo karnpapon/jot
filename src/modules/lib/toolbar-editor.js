@@ -1,4 +1,4 @@
-import Formats from "./formats.js";
+import Formats from "./toolbar-formats.js";
 
 function escape(string) {
   if (typeof string !== "string") {
