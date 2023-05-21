@@ -13,11 +13,11 @@ use tauri::{Manager, Theme};
 #[cfg(target_os = "macos")]
 use tauri::TitleBarStyle;
 
-pub const APP_CONF_PATH: &str = "xxx.conf.json";
-pub const ORIGIN_URL: &str = "https://github.com/karnpapon/xxxxxx";
+pub const APP_CONF_PATH: &str = "jot.conf.json";
+pub const ORIGIN_URL: &str = "https://github.com/karnpapon/jot";
 
 pub fn app_root() -> PathBuf {
-  tauri::api::path::home_dir().unwrap().join(".xxx")
+  tauri::api::path::home_dir().unwrap().join(".jot")
 }
 
 pub fn exists(path: &Path) -> bool {
@@ -47,8 +47,6 @@ pub_struct!(AppConf {
   stay_on_top: bool,
   save_window_state: bool,
   global_shortcut: Option<String>,
-  io_osc: Option<String>,
-  io_midi: Option<String>,
   default_origin: String,
 
   // Main Window
@@ -66,8 +64,6 @@ impl AppConf {
       titlebar: !cfg!(target_os = "macos"),
       hide_dock_icon: false,
       save_window_state: false,
-      io_osc: None,
-      io_midi: None,
       isinit: true,
       main_close: false,
       stay_on_top: false,
