@@ -11,14 +11,14 @@ export function Project() {
 
   this.start = function () {
     // Load previous files
-    if (localStorage.hasOwnProperty("paths")) {
-      if (isJSON(localStorage.getItem("paths"))) {
-        const paths = JSON.parse(localStorage.getItem("paths"));
-        for (const id in paths) {
-          left.project.add(paths[id]);
-        }
-      }
-    }
+    // if (localStorage.hasOwnProperty("paths")) {
+    //   if (isJSON(localStorage.getItem("paths"))) {
+    //     const paths = JSON.parse(localStorage.getItem("paths"));
+    //     for (const id in paths) {
+    //       left.project.add(paths[id]);
+    //     }
+    //   }
+    // }
 
     // Add splash
     if (this.pages.length === 0) {
@@ -53,7 +53,7 @@ export function Project() {
     this.pages.push(page);
     left.go.to_page(this.pages.length - 1);
 
-    localStorage.setItem("paths", JSON.stringify(this.paths()));
+    // localStorage.setItem("paths", JSON.stringify(this.paths()));
   };
 
   this.page = function () {
@@ -199,7 +199,7 @@ export function Project() {
     //   }
     // }
     this.force_close();
-    localStorage.setItem("paths", JSON.stringify(this.paths()));
+    // localStorage.setItem("paths", JSON.stringify(this.paths()));
   };
 
   this.force_close = function () {

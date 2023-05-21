@@ -6,6 +6,8 @@ import { Reader } from "./reader.js";
 import { Toolbar } from "./toolbar.js";
 import { Dictionary } from "./dictionary.js";
 import { Insert } from "./insert.js";
+import { Find } from "./find.js";
+import { Operator } from "./operator.js";
 import { Controller } from "./lib/controller.js";
 import { Theme } from "./lib/theme.js";
 
@@ -18,10 +20,24 @@ export function Left() {
   this.textarea_el = document.createElement("textarea");
   this.drag_el = document.createElement("drag");
   this.drag_el.setAttribute("data-tauri-drag-region", "");
+  this.textarea_and_navi_el = document.createElement("main");
+  this.state = {
+    find: false,
+  };
+
+  // this.find_btn = document.createElement("button");
+  // this.find_btn.classList.add("hl-find");
+  // this.find_btn.innerText = "find text";
+  // this.find_btn.addEventListener("click", () => {
+  //   let arg = "and";
+  //   if (arg) {
+  //     hilite.search(arg);
+  //   }
+  // });
 
   this.init = function () {
     this.theme = new Theme({
-      background: "#EDEAEA",
+      background: "#ffffff",
       f_high: "#393B3F",
       f_med: "#808790",
       f_low: "#A3A3A4",
@@ -40,15 +56,20 @@ export function Left() {
     this.reader = new Reader();
     this.insert = new Insert();
     this.toolbar = new Toolbar();
+    this.operator = new Operator();
+    this.find = new Find();
 
     this.autoindent = true;
     this.selection = { word: null, index: 1 };
   };
 
   this.install = function (host = document.body) {
-    this.navi.install(host);
+    this.navi.install(this.textarea_and_navi_el);
+    this.textarea_and_navi_el.appendChild(this.textarea_el);
+    this.operator.install(host);
 
-    host.appendChild(this.textarea_el);
+    // host.appendChild(this.find_btn);
+    host.appendChild(this.textarea_and_navi_el);
     host.appendChild(this.drag_el);
 
     this.toolbar.install(document.body, this.stats);
@@ -62,7 +83,7 @@ export function Left() {
 
     this.textarea_el.addEventListener("scroll", () => {
       if (!this.reader.active) {
-        this.stats.on_scroll();
+        // this.stats.on_scroll();
       }
     });
 
@@ -81,7 +102,8 @@ export function Left() {
   };
 
   this.start = function () {
-    this.theme.start();
+    // this.theme.start();
+    this.theme.load(this.theme.active);
     this.project.start();
     this.go.to_page();
     this.dictionary.start();
@@ -238,5 +260,12 @@ export function Left() {
 
   this.toggle_autoindent = () => {
     this.autoindent = !this.autoindent;
+  };
+
+  this.toggle_find = () => {
+    this.state.find = !this.state.find;
+    if (!this.state.find) {
+      hilite.clear();
+    }
   };
 }

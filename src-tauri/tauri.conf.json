@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "my-note-taking-application",
+    "productName": "texteditor",
     "version": "0.0.0"
   },
   "tauri": {

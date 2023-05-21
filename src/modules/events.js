@@ -13,12 +13,12 @@ document.onkeydown = function keyDown(e) {
   // }
 
   if (e.metaKey || e.ctrlKey) {
-    if (e.keyCode === 221) {
+    if (e.key === "]") {
       left.navi.next_marker();
       e.preventDefault();
       return;
     }
-    if (e.keyCode === 291) {
+    if (e.key === "[") {
       left.navi.prev_marker();
       e.preventDefault();
       return;
@@ -114,7 +114,7 @@ window.addEventListener("drop", function (e) {
 
 document.onclick = function onClick(e) {
   left.selection.index = 0;
-  // left.operator.stop();
-  // left.reader.stop();
+  left.operator.stop();
+  left.reader.stop();
   left.update();
 };

@@ -5,7 +5,7 @@
 ::-webkit-scrollbar { display: none; margin: 0; padding: 0; }
 
 body { height: 100vh; font-family: var(--font-family); font-size: 12px; overflow: auto; transition: background-color 500ms,filter 150ms; overflow: hidden;}
-body navi { display: block;width: calc((100vw / 4) - 40px);left: 0px;position: absolute;padding: 30px 0px 0px 30px; -webkit-user-select: none;-webkit-app-region: drag;overflow: auto;padding-top:30px;transition: opacity 200ms 200ms, translateY 150ms, width 200ms; opacity:1; height: calc(100vh - 120px); padding-bottom: 40px;}
+body navi { display: block;width: calc((100vw / 4) - 40px);left: 0px;position: relative;padding: 30px 0px 0px 30px; -webkit-user-select: none;-webkit-app-region: drag;overflow: auto;padding-top:30px;transition: opacity 200ms 200ms, translateY 150ms, width 200ms; opacity:1; height: calc(100vh - 120px); padding-bottom: 40px;}
 body navi li { display: flex; flex-direction: row; justify-content: space-between; align-items: center; line-height: 20px; cursor: pointer; position: relative; -webkit-app-region: no-drag; height:20px;}
 body navi li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 body navi li::before { position: absolute; left:-15px;}
@@ -52,7 +52,7 @@ body stats ul { height: 100%; display: inline; overflow: scroll; white-space: no
 body stats li { display: inline; margin-right: 10px; }
 body stats li.active { text-decoration: underline; font-weight: bold; }
 
-body textarea { font-family: var(--font-family); padding: 30px 15px 0; height: calc(100vh - 100px); display: block; width: 80ch; position: fixed; left: 25vw; font-size: var(--font-size); line-height: var(--line-height); resize: none; background: transparent; overflow: auto; max-width: 90%; transition: left 200ms; margin-left:-15px; }
+body textarea { font-family: var(--font-family); padding: 30px 15px 0; height: calc(100vh - 66px); display: block; width: 100%; position: fixed; left: 0; font-size: var(--font-size); line-height: var(--line-height); resize: none; background: transparent; overflow: auto; max-width: 90%; transition: left 200ms; }
 body div.textarea {  line-height: var(--line-height); font-family: var(--font-family); font-size: var(--font-size); white-space: pre-wrap; word-wrap:break-word; }
 /* body div { font-family: var(--font-family); padding: 30px 15px 0; height: calc(100vh - 90px); display: block; width: 80ch; position: fixed; left: 25vw; font-size: var(--font-size); line-height: var(--line-height); resize: none; background: transparent; overflow: auto; max-width: 90%; transition: left 200ms; margin-left:-15px; } */
 body drag { display: block;width: 100vw;height: 30px;position: fixed;top: 0px;-webkit-user-select: none;-webkit-app-region: drag; background-color: transparent !important;}
@@ -63,10 +63,14 @@ body #operator.active { bottom:0px; }
 
 * { background-color: inherit; }
 
-body.mobile navi { opacity:0; transition: opacity 10ms; }
-body.mobile textarea { width: 100vw; left: 5%; transition: left 200ms; transition-delay: 20ms; }
+main { display: flex; }
+main navi { flex: 1;}
+main div { flex: 4; width: 100%;}
+
+body.mobile navi { opacity:0; transition: opacity 10ms; padding: 0px 0px 0px 0px;}
+body.mobile textarea { width: 100vw; left: 0%; transition: left 200ms; transition-delay: 20ms; }
 body.mobile stats { width: 85%; left: 5%; transition: left 200ms; transition-delay: 20ms; }
-body.mobile div { width: 100vw; }
+body.mobile div { width: 100%; }
 body.mobile #operator { width: 85%; left: 5%; }
 
 body #theme_button { width: 40px;height: 40px;position: fixed;right: 0px;bottom: 0px;overflow: hidden; cursor: pointer; opacity: 0; transition: opacity 500ms }
@@ -108,3 +112,16 @@ toolbar {
 .toolbar button:hover {
   background: #ccc;
 }
+
+.hl-find{
+  left: 50%;
+  top: 5%;
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  padding: 1rem;
+  color: white;
+  cursor: pointer;
+}
+
+.find-input { border-bottom: 1px solid; }

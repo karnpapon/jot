@@ -8,11 +8,16 @@ export function Stats() {
   };
 
   this.update = function (special = "") {
-    // if (left.insert.is_active) {
-    //   this.el.innerHTML = left.insert.status();
-    //   return;
-    // }
-
+    if (left.insert.is_active) {
+      this.el.innerHTML = `<div/>`;
+      return;
+    }
+    if (left.state.find) {
+      this.el.innerHTML = "";
+      this.el.appendChild(left.find.el);
+      left.find.el.focus();
+      return;
+    }
     if (left.textarea_el.selectionStart !== left.textarea_el.selectionEnd) {
       this.el.innerHTML = this._selection();
     } else if (left.synonyms) {
@@ -28,13 +33,18 @@ export function Stats() {
   };
 
   this._default = function () {
-    const stats = this.parse(left.selected());
+    // const stats = this.parse(left.selected());
     const date = new Date();
-    return `${stats.l}L ${stats.w}W ${stats.v}V ${stats.c}C ${stats.p}% <span ${
-      stats.a
-    }>AI</span> <span class='right'>${date.getHours()}:${(
-      "0" + date.getMinutes()
-    ).slice(-2)}</span>`;
+    return `LINE:${
+      left.textarea_el.value
+        .substr(0, left.textarea_el.selectionStart)
+        .split("\n").length
+    } <span class='right'>&nbsp;(${date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}, ${date.getHours()}:${("0" + date.getMinutes()).slice(-2)})</span>`;
   };
 
   this.incrementSynonym = function () {
@@ -102,14 +112,14 @@ export function Stats() {
   this._selection = function () {
     return `<b>[${left.textarea_el.selectionStart},${
       left.textarea_el.selectionEnd
-    }]</b> ${this._default()}`;
+    }]&nbsp;</b> ${this._default()}`;
   };
 
   this._url = function () {
     const date = new Date();
-    return `Open <b>${
+    return `Open &nbsp;<b>${
       left.selection.url
-    }</b> with &lt;c-b&gt; <span class='right'>${date.getHours()}:${date.getMinutes()}</span>`;
+    }</b>&nbsp; with &lt;c-b&gt; <span class='right'>&nbsp;${date.getHours()}:${date.getMinutes()}</span>`;
   };
 
   this.on_scroll = function () {
@@ -143,14 +153,14 @@ export function Stats() {
     stats.w = text.split(" ").length; // words_count
     stats.c = text.length; // chars_count
     stats.v = Object.keys(h).length;
-    stats.p =
-      stats.c > 0
-        ? clamp(
-            (left.textarea_el.selectionEnd / stats.c) * 100,
-            0,
-            100
-          ).toFixed(2)
-        : 0;
+    // stats.p =
+    //   stats.c > 0
+    //     ? clamp(
+    //         (left.textarea_el.selectionEnd / stats.c) * 100,
+    //         0,
+    //         100
+    //       ).toFixed(2)
+    //     : 0;
     stats.a = left.autoindent ? 'class="fh"' : "";
     return stats;
   };

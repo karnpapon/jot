@@ -38,6 +38,7 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
   let file_new = CustomMenuItem::new("FILE_NEW".to_string(), "New").accelerator("CmdOrCtrl+n");
   let file_save = CustomMenuItem::new("FILE_SAVE".to_string(), "Save").accelerator("CmdOrCtrl+s");
   let file_open = CustomMenuItem::new("FILE_OPEN".to_string(), "Open").accelerator("CmdOrCtrl+o");
+  let file_find = CustomMenuItem::new("FILE_FIND".to_string(), "Find").accelerator("CmdOrCtrl+f");
 
   let mode_reader =
     CustomMenuItem::new("MODE_READER".to_string(), "Reader").accelerator("CmdOrCtrl+k");
@@ -95,6 +96,8 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
       .add_item(file_save)
       .add_item(file_open)
       .add_native_item(MenuItem::Separator)
+      .add_item(file_find)
+      .add_native_item(MenuItem::Separator)
       .add_item(view_nav_toggle)
       .add_native_item(MenuItem::Separator)
       .add_item(stay_on_top_menu),
@@ -144,6 +147,9 @@ fn on_ready(event: WindowMenuEvent<tauri::Wry>) {
     }
     "FILE_OPEN" => {
       win.emit("menu-file-open", true).unwrap();
+    }
+    "FILE_FIND" => {
+      win.emit("menu-file-find", true).unwrap();
     }
     "VIEW_NAV_TOGGLE" => {
       win.emit("view-nav-toggle", true).unwrap();

@@ -1,4 +1,5 @@
 import { Left } from "/modules/app.js";
+import TextHighlight from "/modules/lib/texthighlighter.js";
 import TextareaEditor from "/modules/lib/editor.js";
 
 const left = new Left();
@@ -17,6 +18,8 @@ window.addEventListener("load", () => {
   listen("menu-file-new", ({ _ }) => left.project.new());
   listen("menu-file-save", ({ _ }) => left.project.save());
   listen("menu-file-open", ({ _ }) => left.project.open());
+  listen("menu-file-find", ({ _ }) => left.toggle_find());
+
   listen("view-nav-toggle", ({ _ }) => left.navi.toggle());
 
   listen("mode-reader", ({ _ }) => left.reader.start());
@@ -33,7 +36,8 @@ window.addEventListener("load", () => {
   listen("select-open-url", ({ _ }) => left.open_url());
 });
 
-// const textarea = document.querySelector("textarea");
+const hilite = new TextHighlight(left.textarea_el);
+window.hilite = hilite;
 const toolbar = document.querySelector(".toolbar");
 const editor = new TextareaEditor(left.textarea_el);
 
