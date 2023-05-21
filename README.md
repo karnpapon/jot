@@ -30,22 +30,22 @@ eg.
 
 ## shortcuts
 
-- Cmd+o : open file
-- Cmd+n : new file
-- Cmd+s : save file
-- Cmd+f : find text
-- Cmd+' : toggle navigator
-- Cmd+b : open url
-- Cmd+[ : move to previous marker
-- Cmd+] : move to next marker
+- `Cmd+o` : open file
+- `Cmd+n` : new file
+- `Cmd+s` : save file
+- `Cmd+f` : find text
+- `Cmd+'` : toggle navigator
+- `Cmd+b` : open url
+- `Cmd+[` : move to previous marker
+- `Cmd+]` : move to next marker
 
 ## inserts
 
-- Cmd+d : Date
-- Cmd+t : Time
-- Cmd+p : Path
-- Cmd+h : Header [*]
-- Cmd+H : Sub-Header [*]
-- Cmd+/ : Comment [*]
+- `Cmd+d` : Date
+- `Cmd+t` : Time
+- `Cmd+p` : Path
+- `Cmd+h` : Header [*]
+- `Cmd+H` : Sub-Header [*]
+- `Cmd+/` : Comment [*]
 
 [*] will create marker at navigator
