@@ -2,7 +2,6 @@ import { Project } from "./project.js";
 import { Go } from "./go.js";
 import { Navi } from "./navi.js";
 import { Stats } from "./stat.js";
-import { Reader } from "./reader.js";
 import { Toolbar } from "./toolbar.js";
 import { Dictionary } from "./dictionary.js";
 import { Insert } from "./insert.js";
@@ -25,16 +24,6 @@ export function Left() {
     find: false,
   };
 
-  // this.find_btn = document.createElement("button");
-  // this.find_btn.classList.add("hl-find");
-  // this.find_btn.innerText = "find text";
-  // this.find_btn.addEventListener("click", () => {
-  //   let arg = "and";
-  //   if (arg) {
-  //     hilite.search(arg);
-  //   }
-  // });
-
   this.init = function () {
     this.theme = new Theme({
       background: "#ffffff",
@@ -53,7 +42,6 @@ export function Left() {
     this.navi = new Navi();
     this.dictionary = new Dictionary();
     this.stats = new Stats();
-    this.reader = new Reader();
     this.insert = new Insert();
     this.toolbar = new Toolbar();
     this.operator = new Operator();
@@ -82,16 +70,12 @@ export function Left() {
     this.textarea_el.setAttribute("type", "text");
 
     this.textarea_el.addEventListener("scroll", () => {
-      if (!this.reader.active) {
-        // this.stats.on_scroll();
-      }
+      this.stats.on_scroll();
     });
 
     // Trigger update when selection changes
     this.textarea_el.addEventListener("select", (e) => {
-      if (!this.reader.active) {
-        this.update();
-      }
+      this.update();
     });
 
     this.textarea_el.addEventListener("input", () => {

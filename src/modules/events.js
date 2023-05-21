@@ -115,6 +115,5 @@ window.addEventListener("drop", function (e) {
 document.onclick = function onClick(e) {
   left.selection.index = 0;
   left.operator.stop();
-  left.reader.stop();
   left.update();
 };

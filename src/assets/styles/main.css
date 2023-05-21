@@ -111,6 +111,7 @@ toolbar {
 
 .toolbar button:hover {
   background: #ccc;
+  cursor: pointer;
 }
 
 .hl-find{

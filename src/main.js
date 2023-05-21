@@ -22,7 +22,6 @@ window.addEventListener("load", () => {
 
   listen("view-nav-toggle", ({ _ }) => left.navi.toggle());
 
-  listen("mode-reader", ({ _ }) => left.reader.start());
   listen("mode-insert", ({ _ }) => left.insert.start());
 
   listen("mode-insert-date", ({ _ }) => left.insert.date());

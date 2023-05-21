@@ -33,7 +33,6 @@ export function Stats() {
   };
 
   this._default = function () {
-    // const stats = this.parse(left.selected());
     const date = new Date();
     return `LINE:${
       left.textarea_el.value
@@ -134,35 +133,6 @@ export function Stats() {
       .join("");
 
     this.el.innerHTML = `${progress} ${(ratio * 100).toFixed(2)}%`;
-  };
-
-  this.parse = function (text = left.textarea_el.value) {
-    text = text.length > 5 ? text.trim() : left.textarea_el.value;
-
-    const h = {};
-    const words = text
-      .toLowerCase()
-      .replace(/[^a-z0-9 ]/g, "")
-      .split(" ");
-    for (const id in words) {
-      h[words[id]] = 1;
-    }
-
-    const stats = {};
-    stats.l = text.split(EOL).length; // lines_count
-    stats.w = text.split(" ").length; // words_count
-    stats.c = text.length; // chars_count
-    stats.v = Object.keys(h).length;
-    // stats.p =
-    //   stats.c > 0
-    //     ? clamp(
-    //         (left.textarea_el.selectionEnd / stats.c) * 100,
-    //         0,
-    //         100
-    //       ).toFixed(2)
-    //     : 0;
-    stats.a = left.autoindent ? 'class="fh"' : "";
-    return stats;
   };
 
   function clamp(v, min, max) {

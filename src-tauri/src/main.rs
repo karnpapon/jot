@@ -40,8 +40,6 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
   let file_open = CustomMenuItem::new("FILE_OPEN".to_string(), "Open").accelerator("CmdOrCtrl+o");
   let file_find = CustomMenuItem::new("FILE_FIND".to_string(), "Find").accelerator("CmdOrCtrl+f");
 
-  let mode_reader =
-    CustomMenuItem::new("MODE_READER".to_string(), "Reader").accelerator("CmdOrCtrl+k");
   let mode_insert =
     CustomMenuItem::new("MODE_INSERT".to_string(), "Insert").accelerator("CmdOrCtrl+i");
 
@@ -103,10 +101,7 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
       .add_item(stay_on_top_menu),
   );
 
-  let submenu_mode = Submenu::new(
-    "Mode",
-    Menu::new().add_item(mode_reader).add_item(mode_insert),
-  );
+  let submenu_mode = Submenu::new("Mode", Menu::new().add_item(mode_insert));
 
   let submenu_select = Submenu::new("Select", Menu::new().add_item(select_open_url));
 
@@ -153,9 +148,6 @@ fn on_ready(event: WindowMenuEvent<tauri::Wry>) {
     }
     "VIEW_NAV_TOGGLE" => {
       win.emit("view-nav-toggle", true).unwrap();
-    }
-    "MODE_READER" => {
-      win.emit("mode-reader", true).unwrap();
     }
     "MODE_INSERT" => {
       win.emit("mode-insert", true).unwrap();
