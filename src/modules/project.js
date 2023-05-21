@@ -30,7 +30,7 @@ export function Project() {
   this.add = async function (path = null) {
     console.log(`Adding page(${path})`);
 
-    this.remove_Helper();
+    this.remove_helper();
 
     let page = new Page();
 
@@ -44,6 +44,7 @@ export function Project() {
 
       try {
         txts = await this.load(path);
+        if (txts === "fs_read_file::no_file_exist") return;
       } catch (err) {
         console.warn(`cannot load file: ${path}`);
       }
@@ -258,7 +259,7 @@ export function Project() {
     // }
   };
 
-  this.remove_Helper = function () {
+  this.remove_helper = function () {
     for (const id in this.pages) {
       const page = this.pages[id];
       if (page.text === new Helper().text) {

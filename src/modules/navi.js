@@ -36,7 +36,7 @@ export function Navi() {
     let _has_change = await page.has_changes();
     return `<li class='page ${
       _has_change ? "changes" : ""
-    }' onclick='jot.go.to_page(${id})'>${page.name()}</li>`;
+    }' onclick='jot.go.to_page(${id})'><div>${page.name()}</div></li>`;
   };
 
   this._marker = function (pid, current, marker, markers) {

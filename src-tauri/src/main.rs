@@ -4,6 +4,8 @@
 )]
 
 mod lib;
+use std::path::Path;
+
 use crate::lib::conf::AppConf;
 use crate::lib::setup;
 // use std::borrow::Borrow;
@@ -13,17 +15,19 @@ use tauri::{
   WindowMenuEvent,
 };
 
-pub struct XXXApp {
-  // osc_states: Mutex<OscPlugin>,
-}
+pub struct JotApp {}
 
 // since Tauri is not encourage to access arbitrary filesystem path (readmore: https://tauri.app/v1/api/js/fs#security)
 #[tauri::command]
 fn fs_read_file(filename: &str) -> Result<String, String> {
   use std::fs;
-  let file = fs::read(filename).expect("fs_read_file: error");
-  let res = String::from_utf8_lossy(&file);
-  Ok(format!("{}", res))
+  if Path::new(filename).exists() {
+    let file = fs::read(filename).expect("fs_read_file: error");
+    let res = String::from_utf8_lossy(&file);
+    return Ok(format!("{}", res));
+  }
+
+  Ok("fs_read_file::no_file_exist".to_string())
 }
 
 // #[tauri::command]
@@ -130,7 +134,7 @@ fn on_ready(event: WindowMenuEvent<tauri::Wry>) {
   let app = win.app_handle();
   let menu_id = event.menu_item_id();
   let menu_handle = win.menu_handle();
-  let state = app.state::<XXXApp>();
+  let state = app.state::<JotApp>();
   // let midi_state_devices = state.midi_states.devices.lock();
 
   match menu_id {
@@ -198,7 +202,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
   tauri::Builder::default()
     .setup(setup::init)
     .menu(menu(&context))
-    .manage(XXXApp {
+    .manage(JotApp {
       // osc_states: Default::default(),
       // midi_states: Default::default(),
     })

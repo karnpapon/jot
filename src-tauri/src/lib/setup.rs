@@ -1,4 +1,4 @@
-use crate::XXXApp;
+use crate::JotApp;
 
 use super::conf::AppConf;
 // use log::info;
