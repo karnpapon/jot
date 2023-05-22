@@ -49,9 +49,10 @@ body navi > div > ul > * {
   /* position: absolute; */
   /* left: 0; */
 }
-body navi > div > ul > button.navi-item-close-btn { cursor: pointer; justify-content: center;  display: flex; margin-top: 1px;}
+body navi > div > ul > button.navi-item-close-btn { cursor: pointer; justify-content: center;  display: flex; margin-top: 1px; visibility: hidden;}
 body navi > div > ul > button.navi-item-close-btn:hover { color: black;}
 body navi > div > ul { display: flex; }
+body navi > div > ul:hover > button { visibility: visible; }
 body navi > div > ul.active li.page { color: black !important; }
 body navi > div > ul li.page > div { margin-left: 15px;}
 body navi > div > ul li.marker, body navi > div > ul li.page > div { display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }

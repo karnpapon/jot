@@ -7,11 +7,12 @@ export function Helper() {
 
 # Usages
 marker will be created by #, ## or ###.
-
 eg. 
 # header marker
 ## sub-header marker
 ### marker
+
+for footnote superscript (eg. anyword¹), use ^ follow by any number eg. word^1 and type Cmd+Shift+6 (make sure the cursor is within the target word) it will be converted to 'word¹' and append the reference to the end of the file.
 
 # supported extensions
 - .txt
@@ -31,6 +32,7 @@ eg.
 - Cmd+b : 🌎 open url
 - Cmd+[ : ← move to previous marker
 - Cmd+] : → move to next marker
+- Cmd+Shift+6 : convert to footnote superscript
 
 ## Inserts
 - Cmd+d : 📅 Date 

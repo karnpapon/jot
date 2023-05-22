@@ -19,6 +19,8 @@ eg.
 - `## sub-header marker`
 - `### marker`
 
+for footnote superscript (eg. `word¹`), use `^` follow by any number eg. `word^1` and type `Cmd+Shift+6` (make sure the cursor is within the target word) will results `word¹` and append reference to the end of the file.
+
 # build
 
 - `pnpm i`, install deps first
@@ -39,6 +41,7 @@ eg.
 - `Cmd+b` : open url
 - `Cmd+[` : move to previous marker
 - `Cmd+]` : move to next marker
+- `Cmd+Shift+6` : convert to footnote superscript
 
 ## inserts
 

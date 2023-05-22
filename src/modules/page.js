@@ -7,6 +7,8 @@ export function Page(text = "", path = null) {
   this.size = 0;
   this.watchdog = true;
   this.disabled = false;
+  // this.reference_counter = 0;
+  // this.refs = new Map();
 
   this.name = function () {
     if (!this.path) {

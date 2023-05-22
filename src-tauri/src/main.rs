@@ -63,6 +63,8 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
     CustomMenuItem::new("MODE_INSERT_COMMENT".to_string(), "Comment").accelerator("CmdOrCtrl+/");
   let mode_insert_stop =
     CustomMenuItem::new("MODE_INSERT_STOP".to_string(), "Stop").accelerator("Esc");
+  let mode_insert_reference = CustomMenuItem::new("MODE_INSERT_REFERENCE".to_string(), "Reference")
+    .accelerator("CmdOrCtrl+Shift+6");
 
   let select_open_url =
     CustomMenuItem::new("SELECT_OPEN_URL".to_string(), "Open Url").accelerator("CmdOrCtrl+b");
@@ -120,6 +122,7 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
       .add_item(mode_insert_path)
       .add_item(mode_insert_header)
       .add_item(mode_insert_subheader)
+      .add_item(mode_insert_reference)
       .add_item(mode_insert_comment)
       .add_item(mode_insert_stop),
   );
@@ -179,6 +182,9 @@ fn on_ready(event: WindowMenuEvent<tauri::Wry>) {
     }
     "MODE_INSERT_COMMENT" => {
       win.emit("mode-insert-comment", true).unwrap();
+    }
+    "MODE_INSERT_REFERENCE" => {
+      win.emit("mode-insert-reference", true).unwrap();
     }
     "MODE_INSERT_STOP" => {
       win.emit("mode-insert-stop", true).unwrap();

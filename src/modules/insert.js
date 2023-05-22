@@ -54,6 +54,29 @@ export function Insert() {
     this.stop();
   };
 
+  this.reference = function () {
+    const word = jot.active_word().split("^");
+    console.log("word", word);
+    if (word.length < 2) return;
+    if (!Number.isInteger(parseInt(word[1]))) return;
+
+    const superscript = [...(word[1] + "")]
+      .map((n) => +n)
+      .reduce((acc, curr) => {
+        acc += "⁰¹²³⁴⁵⁶⁷⁸⁹"[curr];
+        return acc;
+      }, "");
+    const word_with_sup = word[0] + superscript;
+
+    if (jot.prev_character() === EOL) {
+      jot.inject_insert(word[0], superscript, word[1]);
+    } else {
+      jot.inject_insert(word[0], superscript, word[1]);
+    }
+
+    this.stop();
+  };
+
   this.header = function () {
     const isMultiline = jot.selected().match(/[^\r\n]+/g);
 

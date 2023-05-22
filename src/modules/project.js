@@ -56,7 +56,10 @@ export function Project() {
     localStorage.setItem("paths", JSON.stringify(this.paths()));
   };
 
-  this.remove = function (pid) {
+  this.remove = async function (pid) {
+    const confirmed = await dialog.confirm("remove from navigator panel?");
+    if (!confirmed) return;
+
     if (localStorage.hasOwnProperty("paths")) {
       if (isJSON(localStorage.getItem("paths"))) {
         this.pages.splice(pid, 1);

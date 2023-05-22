@@ -59,7 +59,6 @@ export function Jot() {
     host.appendChild(this.drag_el);
 
     this.toolbar.install(document.body, this.stats);
-    // host.className = window.location.hash.replace("#", "");
 
     this.textarea_el.setAttribute("autocomplete", "off");
     this.textarea_el.setAttribute("autocorrect", "off");
@@ -95,8 +94,15 @@ export function Jot() {
   };
 
   this.update = (hard = false) => {
+    // const nextChar = this.textarea_el.value.substring(
+    //   this.textarea_el.selectionEnd,
+    //   this.textarea_el.selectionEnd + 1
+    // );
+
     this.selection.word = this.active_word();
     this.selection.url = this.active_url();
+    console.log("selection", this.selection);
+    // console.log("nextChar", nextChar);
 
     this.navi.update();
     this.project.update();
@@ -139,7 +145,7 @@ export function Jot() {
 
   this.active_word = () => {
     const l = this.active_word_location();
-    return this.textarea_el.value.substr(l.from, l.to - l.from);
+    return this.textarea_el.value.substring(l.from, l.to);
   };
 
   this.active_url = function () {
@@ -158,7 +164,7 @@ export function Jot() {
     // Find beginning of word
     while (from > -1) {
       const char = this.textarea_el.value[from];
-      if (!char || !char.match(/[a-z]/i)) {
+      if (!char || !char.match(/[a-z]|[\^\d+]/i)) {
         break;
       }
       from -= 1;
@@ -168,7 +174,7 @@ export function Jot() {
     let to = from + 1;
     while (to < from + 30) {
       const char = this.textarea_el.value[to];
-      if (!char || !char.match(/[a-z]/i)) {
+      if (!char || !char.match(/[a-z]|[\^\d+]/i)) {
         break;
       }
       to += 1;
@@ -195,14 +201,37 @@ export function Jot() {
   this.selected = function () {
     const from = this.textarea_el.selectionStart;
     const to = this.textarea_el.selectionEnd;
-    const length = to - from;
-    return this.textarea_el.value.substr(from, length);
+    return this.textarea_el.value.substring(from, to);
   };
 
   this.inject = function (characters = "__") {
-    const pos = this.textarea_el.selectionStart;
-    this.textarea_el.setSelectionRange(pos, pos);
+    const pos_start = this.textarea_el.selectionStart || 0;
+    const pos_end = this.textarea_el.selectionEnd || 0;
+    this.textarea_el.focus();
+    this.textarea_el.setSelectionRange(pos_start, pos_end);
     document.execCommand("insertText", false, characters);
+    this.update();
+  };
+
+  this.inject_insert = function (word, superscript, ref_num) {
+    const l = this.active_word_location();
+    this.textarea_el.focus();
+    this.textarea_el.setSelectionRange(l.from, l.to);
+    document.execCommand("insertText", false, `${word}${superscript}`);
+
+    this.textarea_el.setSelectionRange(
+      this.textarea_el.value.length,
+      this.textarea_el.value.length
+    );
+    if (ref_num === 0) {
+      document.execCommand(
+        "insertText",
+        false,
+        `\n\n${superscript} "${word}", `
+      );
+    } else {
+      document.execCommand("insertText", false, `\n${superscript} "${word}", `);
+    }
     this.update();
   };
 

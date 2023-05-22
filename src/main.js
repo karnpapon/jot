@@ -30,6 +30,7 @@ window.addEventListener("load", () => {
   listen("mode-insert-path", ({ _ }) => jot.insert.path());
   listen("mode-insert-header", ({ _ }) => jot.insert.header());
   listen("mode-insert-subheader", ({ _ }) => jot.insert.subheader());
+  listen("mode-insert-reference", ({ _ }) => jot.insert.reference());
   listen("mode-insert-comment", ({ _ }) => jot.insert.comment());
   listen("mode-insert-stop", ({ _ }) => jot.insert.stop());
 
