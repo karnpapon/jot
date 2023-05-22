@@ -17,6 +17,7 @@ window.addEventListener("load", () => {
 
   listen("menu-file-new", ({ _ }) => jot.project.new());
   listen("menu-file-save", ({ _ }) => jot.project.save());
+  listen("menu-file-save-as", ({ _ }) => jot.project.save_as());
   listen("menu-file-open", ({ _ }) => jot.project.open());
   listen("menu-file-find", ({ _ }) => jot.toggle_find());
 

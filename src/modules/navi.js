@@ -19,6 +19,14 @@ export function Navi() {
       html += `<ul class="${
         jot.project.index === parseInt(pid) ? "active" : ""
       }">`;
+      html += `${
+        parseInt(pid) > 0
+          ? `<button title="remove" onclick='jot.project.remove(${parseInt(
+              pid
+            )})' class="navi-item-close-btn">x</button>`
+          : "<span>&nbsp;</span>"
+      }`;
+      html += "<div>";
       html += await this._page(parseInt(pid), page);
       html += `<div class="marker-wrapper ${
         jot.project.index === parseInt(pid) ? "" : "hide"
@@ -28,6 +36,7 @@ export function Navi() {
         const marker = markers[i];
         html += this._marker(pid, current, marker, markers);
       }
+      html += "<div>";
       html += "</div>";
       html += "</ul>";
     }

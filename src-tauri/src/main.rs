@@ -41,6 +41,8 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
   let app_conf = AppConf::read();
   let file_new = CustomMenuItem::new("FILE_NEW".to_string(), "New").accelerator("CmdOrCtrl+n");
   let file_save = CustomMenuItem::new("FILE_SAVE".to_string(), "Save").accelerator("CmdOrCtrl+s");
+  let file_save_as =
+    CustomMenuItem::new("FILE_SAVE_AS".to_string(), "Save As").accelerator("CmdOrCtrl+Shift+s");
   let file_open = CustomMenuItem::new("FILE_OPEN".to_string(), "Open").accelerator("CmdOrCtrl+o");
   let file_find = CustomMenuItem::new("FILE_FIND".to_string(), "Find").accelerator("CmdOrCtrl+f");
 
@@ -96,6 +98,7 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
     Menu::new()
       .add_item(file_new)
       .add_item(file_save)
+      .add_item(file_save_as)
       .add_item(file_open)
       .add_native_item(MenuItem::Separator)
       .add_item(file_find)
@@ -143,6 +146,9 @@ fn on_ready(event: WindowMenuEvent<tauri::Wry>) {
     }
     "FILE_SAVE" => {
       win.emit("menu-file-save", true).unwrap();
+    }
+    "FILE_SAVE_AS" => {
+      win.emit("menu-file-save-as", true).unwrap();
     }
     "FILE_OPEN" => {
       win.emit("menu-file-open", true).unwrap();

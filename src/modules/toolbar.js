@@ -5,43 +5,43 @@ export function Toolbar() {
 
   this.toolbar_bold = document.createElement("li");
   this.toolbar_bold.innerHTML =
-    '<li><button type="button" data-command="bold">B</button></li>';
+    '<li><button type="button" data-command="bold" title="bold">B</button></li>';
   this.toolbar_italic = document.createElement("li");
   this.toolbar_italic.innerHTML =
-    '<li><button type="button" data-command="italic">I</button></li>';
+    '<li><button type="button" data-command="italic" title="italic">I</button></li>';
   this.toolbar_link = document.createElement("li");
   this.toolbar_link.innerHTML =
-    '<li><button type="button" data-command="link">@</button></li>';
+    '<li><button type="button" data-command="link" title="link">@</button></li>';
   this.toolbar_image = document.createElement("li");
   this.toolbar_image.innerHTML =
-    '<li><button type="button" data-command="image">img</button></li>';
+    '<li><button type="button" data-command="image" title="img">img</button></li>';
   this.toolbar_header1 = document.createElement("li");
   this.toolbar_header1.innerHTML =
-    '<li><button type="button" data-command="header1">#</button></li>';
+    '<li><button type="button" data-command="header1" title="h1">#</button></li>';
   this.toolbar_header2 = document.createElement("li");
   this.toolbar_header2.innerHTML =
-    '<li><button type="button" data-command="header2">##</button></li>';
+    '<li><button type="button" data-command="header2" title="h2">##</button></li>';
   this.toolbar_header3 = document.createElement("li");
   this.toolbar_header3.innerHTML =
-    '<li><button type="button" data-command="header3">###</button></li>';
+    '<li><button type="button" data-command="header3" title="h3">###</button></li>';
   this.toolbar_unorderedList = document.createElement("li");
   this.toolbar_unorderedList.innerHTML =
-    '<li><button type="button" data-command="unorderedList">-</button></li>';
+    '<li><button type="button" data-command="unorderedList" title="unorderlist">-</button></li>';
   this.toolbar_unorderedList2 = document.createElement("li");
   this.toolbar_unorderedList2.innerHTML =
-    '<li><button type="button" data-command="subHead">--</button></li>';
+    '<li><button type="button" data-command="subHead" title="comment">--</button></li>';
   this.toolbar_orderedList = document.createElement("li");
   this.toolbar_orderedList.innerHTML =
-    '<li><button type="button" data-command="orderedList">1.</button></li>';
+    '<li><button type="button" data-command="orderedList" title="list">1.</button></li>';
   this.toolbar_tasklist = document.createElement("li");
   this.toolbar_tasklist.innerHTML =
-    '<li><button type="button" data-command="taskList">[]</button></li>';
+    '<li><button type="button" data-command="taskList" title="tasklist">[]</button></li>';
   this.toolbar_blockquote = document.createElement("li");
   this.toolbar_blockquote.innerHTML =
-    '<li><button type="button" data-command="blockquote">&gt;</button></li>';
+    '<li><button type="button" data-command="blockquote" title="blockquote">&gt;</button></li>';
   this.toolbar_code = document.createElement("li");
   this.toolbar_code.innerHTML =
-    '<li><button type="button" data-command="code">&lt;code&gt;</button></li>';
+    '<li><button type="button" data-command="code" title="code">&lt;code&gt;</button></li>';
 
   this.install = function (host, child) {
     // this.toolbar_el.appendChild(this.toolbar_bold);
@@ -53,7 +53,7 @@ export function Toolbar() {
     this.toolbar_el.appendChild(this.toolbar_header3);
     this.toolbar_el.appendChild(this.toolbar_unorderedList);
     this.toolbar_el.appendChild(this.toolbar_unorderedList2);
-    this.toolbar_el.appendChild(this.toolbar_orderedList);
+    // this.toolbar_el.appendChild(this.toolbar_orderedList);
     this.toolbar_el.appendChild(this.toolbar_tasklist);
     this.toolbar_el.appendChild(this.toolbar_blockquote);
     this.toolbar_el.appendChild(this.toolbar_code);

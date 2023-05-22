@@ -12,7 +12,7 @@ Jot (จด) is a simple writing tool focus on writing, no fancy viewer, no imag
 
 # usages
 
-marker will be created by #, ## or --.
+marker will be created by #, ## or ###.
 eg.
 
 - `# header marker`
@@ -33,6 +33,7 @@ eg.
 - `Cmd+o` : open file
 - `Cmd+n` : new file
 - `Cmd+s` : save file
+- `Cmd+Shift+s` : save as file
 - `Cmd+f` : find text
 - `Cmd+'` : toggle navigator
 - `Cmd+b` : open url
@@ -44,8 +45,8 @@ eg.
 - `Cmd+d` : Date
 - `Cmd+t` : Time
 - `Cmd+p` : Path
-- `Cmd+h` : Header [*]
-- `Cmd+H` : Sub-Header [*]
-- `Cmd+/` : Comment [*]
+- `Cmd+h` : Header¹
+- `Cmd+H` : Sub-Header¹
+- `Cmd+/` : Comment
 
-[*] will create marker at navigator
+¹will create marker at navigator

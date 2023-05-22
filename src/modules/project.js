@@ -56,6 +56,19 @@ export function Project() {
     localStorage.setItem("paths", JSON.stringify(this.paths()));
   };
 
+  this.remove = function (pid) {
+    if (localStorage.hasOwnProperty("paths")) {
+      if (isJSON(localStorage.getItem("paths"))) {
+        this.pages.splice(pid, 1);
+        localStorage.setItem("paths", JSON.stringify(this.paths()));
+      }
+    }
+    setTimeout(() => {
+      jot.navi.next_page();
+      jot.update();
+    }, 200);
+  };
+
   this.page = function () {
     return this.pages[this.index];
   };
@@ -102,7 +115,7 @@ export function Project() {
       filters: [
         {
           name: "openfile",
-          extensions: ["txt"],
+          extensions: ["txt", "md", "doc", "docx", "rft", "rtf"],
         },
       ],
     });
@@ -153,7 +166,7 @@ export function Project() {
       filters: [
         {
           name: "save-file-0",
-          extensions: ["txt"],
+          extensions: ["txt", "md", "doc", "docx", "rft", "rtf"],
         },
       ],
     });

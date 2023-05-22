@@ -92,16 +92,9 @@ export function Jot() {
     this.textarea_el.focus();
     this.textarea_el.setSelectionRange(0, 0);
     this.update();
-
-    console.log("project", this.project.pages);
   };
 
   this.update = (hard = false) => {
-    const nextChar = this.textarea_el.value.substr(
-      this.textarea_el.selectionEnd,
-      1
-    );
-
     this.selection.word = this.active_word();
     this.selection.url = this.active_url();
 

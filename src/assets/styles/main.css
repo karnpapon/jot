@@ -5,7 +5,7 @@
 ::-webkit-scrollbar { display: none; margin: 0; padding: 0; }
 
 body { height: 100vh; font-family: var(--font-family); font-size: 12px; overflow: auto; transition: background-color 500ms,filter 150ms; overflow: hidden;}
-body navi > div { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;width: 200px;position: relative;padding: 30px 0px 0px 30px; padding-top:30px;transition: opacity 200ms 200ms; opacity:1; height: calc(100vh - 66px); padding-bottom: 40px;}
+body navi > div { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;width: 150px;position: relative;padding: 30px 0px 0px 15px; padding-top:30px;transition: opacity 200ms 200ms; opacity:1; height: calc(100vh - 66px); padding-bottom: 40px;}
 body navi > div li { display: flex; flex-direction: row; justify-content: space-between; align-items: center; line-height: 20px; cursor: pointer; position: relative; -webkit-app-region: no-drag; height:20px;}
 /* body navi > div li span, body navi > div li {  text-overflow: ellipsis; white-space: nowrap; } */
 body navi > div li::before { position: absolute; left:0;}
@@ -29,7 +29,7 @@ body navi > div li.h3 { padding-left: 30px;}
 body navi > div li.h3::before { content:""; left:0px; }
 body navi > div li.changes::after { content:"*"; position: absolute; right: 0; background-color: var(--background-color); width: 12%;}
 body navi > div li i { padding-right:15px; }
-body navi > div ul > div { width: auto; margin-left: 15px; }
+body navi > div ul > div { width: auto; margin-left: 5px; width: 90%;}
 body navi > div > ul::after { 
   /* position: absolute;
   content: '';
@@ -40,6 +40,7 @@ body navi > div > ul::after {
   padding-right: 2rem; */
 }
 body navi > div > ul > * {
+  /* text-overflow: ellipsis; */
   /* width: 140px;
   display: block;
   text-overflow: ellipsis;
@@ -48,6 +49,9 @@ body navi > div > ul > * {
   /* position: absolute; */
   /* left: 0; */
 }
+body navi > div > ul > button.navi-item-close-btn { cursor: pointer; justify-content: center;  display: flex; margin-top: 1px;}
+body navi > div > ul > button.navi-item-close-btn:hover { color: black;}
+body navi > div > ul { display: flex; }
 body navi > div > ul.active li.page { color: black !important; }
 body navi > div > ul li.page > div { margin-left: 15px;}
 body navi > div > ul li.marker, body navi > div > ul li.page > div { display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
@@ -76,7 +80,7 @@ body #operator.active { bottom:0px; }
 * { background-color: inherit; }
 
 main { display: flex; }
-main navi { flex: 1.5;}
+/* main navi { flex: 1.5;} */
 main div { flex: 4; width: 100%;}
 
 body.mobile navi { opacity:0; transition: opacity 10ms; padding: 0px 0px 0px 0px;}
