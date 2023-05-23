@@ -7,8 +7,6 @@ export function Page(text = "", path = null) {
   this.size = 0;
   this.watchdog = true;
   this.disabled = false;
-  // this.reference_counter = 0;
-  // this.refs = new Map();
 
   this.name = function () {
     if (!this.path) {
@@ -130,5 +128,43 @@ export function Page(text = "", path = null) {
       }
     }
     return a;
+  };
+
+  this.get_referece_data_obj = function () {
+    function digitFromSuperscript(superChar) {
+      var result = "⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(superChar);
+      if (result > -1) {
+        return result;
+      } else {
+        return superChar;
+      }
+    }
+
+    function to_base10(int_from_superscripts, num, i) {
+      return num * Math.pow(10, int_from_superscripts.length - 1 - i);
+    }
+
+    const markers = this.markers();
+    const refs = markers.filter((m) => m.text === "References");
+    if (refs.length === 0) return;
+
+    const lines = this.text
+      .split("# References\n")[1]
+      .split("\n")
+      .reduce((acc, curr) => {
+        let ref_superscript = curr.match(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/i)[0];
+        const int_from_superscripts = ref_superscript
+          .split("")
+          .map(digitFromSuperscript);
+        const ref_num = int_from_superscripts
+          .map((num, i) => to_base10(int_from_superscripts, num, i))
+          .reduce((acc, curr) => (acc = curr + acc));
+
+        acc[ref_num] = {};
+        acc[ref_num]["ref_text"] = curr.split(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/i)[1];
+        acc[ref_num]["ref_superscript"] = ref_superscript;
+        return acc;
+      }, {});
+    return lines;
   };
 }

@@ -46,7 +46,7 @@ export function Jot() {
     this.find = new Find();
 
     this.autoindent = true;
-    this.selection = { word: null, index: 1 };
+    this.selection = { word: null, index: 1, reference: null };
   };
 
   this.install = function (host = document.body) {
@@ -101,8 +101,7 @@ export function Jot() {
 
     this.selection.word = this.active_word();
     this.selection.url = this.active_url();
-    console.log("selection", this.selection);
-    // console.log("nextChar", nextChar);
+    this.selection.reference = this.active_reference();
 
     this.navi.update();
     this.project.update();
@@ -156,6 +155,45 @@ export function Jot() {
       }
     }
     return null;
+  };
+
+  this.active_reference = function () {
+    function digitFromSuperscript(superChar) {
+      var result = "⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(superChar);
+      if (result > -1) {
+        return result;
+      } else {
+        return superChar;
+      }
+    }
+
+    function to_base10(int_from_superscripts, num, i) {
+      return num * Math.pow(10, int_from_superscripts.length - 1 - i);
+    }
+
+    const position = this.active_word_location();
+    let from = position.from;
+
+    // // Find end of word
+    let to = from + 1;
+    while (to < from + 30) {
+      const char = this.textarea_el.value[to];
+      if (!char || !char.match(/[a-z]|[⁰¹²³⁴⁵⁶⁷⁸⁹]/i)) {
+        break;
+      }
+      to += 1;
+    }
+
+    const word = this.textarea_el.value.substring(from, to);
+    const w = word.match(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/i);
+    if (w === null) return null;
+
+    const int_from_superscripts = w[0].split("").map(digitFromSuperscript);
+    const ref_num = int_from_superscripts
+      .map((num, i) => to_base10(int_from_superscripts, num, i))
+      .reduce((acc, curr) => (acc = curr + acc));
+
+    return ref_num;
   };
 
   this.active_word_location = (position = this.textarea_el.selectionEnd) => {
@@ -213,25 +251,11 @@ export function Jot() {
     this.update();
   };
 
-  this.inject_insert = function (word, superscript, ref_num) {
+  this.inject_manual_insert = function (fn = () => {}) {
     const l = this.active_word_location();
     this.textarea_el.focus();
     this.textarea_el.setSelectionRange(l.from, l.to);
-    document.execCommand("insertText", false, `${word}${superscript}`);
-
-    this.textarea_el.setSelectionRange(
-      this.textarea_el.value.length,
-      this.textarea_el.value.length
-    );
-    if (ref_num === 0) {
-      document.execCommand(
-        "insertText",
-        false,
-        `\n\n${superscript} "${word}", `
-      );
-    } else {
-      document.execCommand("insertText", false, `\n${superscript} "${word}", `);
-    }
+    fn();
     this.update();
   };
 

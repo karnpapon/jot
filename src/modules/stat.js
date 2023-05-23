@@ -27,6 +27,8 @@ export function Stats() {
       this.el.innerHTML = this._suggestion();
     } else if (jot.selection.url) {
       this.el.innerHTML = this._url();
+    } else if (jot.selection.reference) {
+      this.el.innerHTML = this._reference(jot.selection.reference);
     } else {
       this.el.innerHTML = this._default();
     }
@@ -119,6 +121,17 @@ export function Stats() {
     return `Open &nbsp;<b>${
       jot.selection.url
     }</b>&nbsp; with Cmd+b <span class='right'>&nbsp;${date.getHours()}:${date.getMinutes()}</span>`;
+  };
+
+  this._reference = function (ref) {
+    let ref_data = jot.project.page().get_referece_data_obj();
+    if (!ref_data) {
+      return `<b>[Warning]:</b>&nbsp;no '# References' section`;
+    }
+    if (!ref_data[ref]) {
+      return `<b>[Warning]:</b>&nbsp;please check if reference number existed or matched.`;
+    }
+    return `Reference ${ref_data[ref].ref_superscript}: &nbsp;<b>${ref_data[ref].ref_text}</b>`;
   };
 
   this.on_scroll = function () {

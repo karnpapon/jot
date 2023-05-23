@@ -54,6 +54,28 @@ export function Insert() {
     this.stop();
   };
 
+  this.insert_reference = function (word, superscript) {
+    document.execCommand("insertText", false, `${word}${superscript}`);
+
+    jot.textarea_el.setSelectionRange(
+      jot.textarea_el.value.length,
+      jot.textarea_el.value.length
+    );
+
+    const markers = jot.project.page().markers();
+    const has_reference_marker = markers.some((m) => m.text === "References");
+
+    if (!has_reference_marker) {
+      document.execCommand(
+        "insertText",
+        false,
+        `\n\n# References\n${superscript} "${word}", `
+      );
+    } else {
+      document.execCommand("insertText", false, `\n${superscript} "${word}", `);
+    }
+  };
+
   this.reference = function () {
     const word = jot.active_word().split("^");
     console.log("word", word);
@@ -66,13 +88,8 @@ export function Insert() {
         acc += "⁰¹²³⁴⁵⁶⁷⁸⁹"[curr];
         return acc;
       }, "");
-    const word_with_sup = word[0] + superscript;
 
-    if (jot.prev_character() === EOL) {
-      jot.inject_insert(word[0], superscript, word[1]);
-    } else {
-      jot.inject_insert(word[0], superscript, word[1]);
-    }
+    jot.inject_manual_insert(() => this.insert_reference(word[0], superscript));
 
     this.stop();
   };
