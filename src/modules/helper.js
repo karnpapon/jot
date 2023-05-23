@@ -12,7 +12,8 @@ eg.
 ## sub-header marker
 ### marker
 
-for footnote superscript (eg. anyword¹), use ^ follow by any number eg. word^1 and type Cmd+Shift+6 (make sure the cursor is within the target word) it will be converted to 'word¹' and append the reference to the end of the file.
+for word referencing (eg. anyword¹), use ^ follow by any number eg. word^1 and type Cmd+Shift+6 (make sure the cursor is within the target word) it will be converted to 'word¹' and append the reference to the end of the file.
+example. put cursor anythere within anyword¹ you'll see footer of the application show example reference notes
 
 # supported extensions
 - .txt
@@ -33,18 +34,20 @@ for footnote superscript (eg. anyword¹), use ^ follow by any number eg. word^1 
 - Cmd+[ : ← move to previous marker
 - Cmd+] : → move to next marker
 - Cmd+Shift+6 : convert to footnote superscript
+- Cmd+Shift+; : switch between dark/light theme.
 
 ## Inserts
 - Cmd+d : 📅 Date 
 - Cmd+t : 🕐 Time 
-- Cmd+h : Header¹
-- Cmd+H : Sub-Header¹
+- Cmd+h : Header²
+- Cmd+H : Sub-Header²
 - Cmd+/ : Comment
-
-¹will create marker at navigator
 
 View sources: https://github.com/karnpapon/jot
 
+# References
+¹ example reference word
+² will create marker at navigator
 `
   );
 

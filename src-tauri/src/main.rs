@@ -71,6 +71,11 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
 
   let view_nav_toggle = CustomMenuItem::new("VIEW_NAV_TOGGLE".to_string(), "Toggle Navigation")
     .accelerator("CmdOrCtrl+'");
+  let view_nav_toggle_theme = CustomMenuItem::new(
+    "VIEW_NAV_TOGGLE_THEME".to_string(),
+    "Toggle DarkMode/LightMode",
+  )
+  .accelerator("CmdOrCtrl+Shift+;");
   let stay_on_top = CustomMenuItem::new("STAY_ON_TOP".to_string(), "Stay On Top");
   let stay_on_top_menu = if app_conf.stay_on_top {
     stay_on_top.selected()
@@ -106,6 +111,7 @@ fn menu<A: Assets>(ctx: &Context<A>) -> Menu {
       .add_item(file_find)
       .add_native_item(MenuItem::Separator)
       .add_item(view_nav_toggle)
+      .add_item(view_nav_toggle_theme)
       .add_native_item(MenuItem::Separator)
       .add_item(stay_on_top_menu),
   );
@@ -161,6 +167,9 @@ fn on_ready(event: WindowMenuEvent<tauri::Wry>) {
     }
     "VIEW_NAV_TOGGLE" => {
       win.emit("view-nav-toggle", true).unwrap();
+    }
+    "VIEW_NAV_TOGGLE_THEME" => {
+      win.emit("view-nav-toggle-theme", true).unwrap();
     }
     "MODE_INSERT" => {
       win.emit("mode-insert", true).unwrap();

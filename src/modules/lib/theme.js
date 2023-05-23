@@ -1,8 +1,30 @@
 export function Theme(_default) {
-  // const fs = require('fs')
   const themer = this;
+  this.is_dark_theme = false;
 
   this.active = _default;
+  this.dark = {
+    background: "#2e2e2e",
+    f_high: "#eee",
+    f_med: "#888",
+    f_low: "#666",
+    f_inv: "#00f",
+    b_high: "#f9a",
+    b_med: "#a9f",
+    b_low: "#000",
+    b_inv: "#af9",
+  };
+  this.light = {
+    background: "#ffffff",
+    f_high: "#393B3F",
+    f_med: "#808790",
+    f_low: "#A3A3A4",
+    f_inv: "#000000",
+    b_high: "#333333",
+    b_med: "#777777",
+    b_low: "#DDDDDD",
+    b_inv: "#ffffff",
+  };
 
   this.el = document.createElement("style");
   this.el.type = "text/css";
@@ -180,4 +202,9 @@ export function Theme(_default) {
       return false;
     }
   }
+
+  this.toggleTheme = function () {
+    this.is_dark_theme = !this.is_dark_theme;
+    this.load(this.is_dark_theme ? this.dark : this.light);
+  };
 }

@@ -22,6 +22,7 @@ window.addEventListener("load", () => {
   listen("menu-file-find", ({ _ }) => jot.toggle_find());
 
   listen("view-nav-toggle", ({ _ }) => jot.navi.toggle());
+  listen("view-nav-toggle-theme", ({ _ }) => jot.theme.toggleTheme());
 
   listen("mode-insert", ({ _ }) => jot.insert.start());
 

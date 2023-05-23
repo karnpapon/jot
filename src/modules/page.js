@@ -149,6 +149,7 @@ export function Page(text = "", path = null) {
     if (refs.length === 0) return;
 
     const lines = this.text
+      .trimEnd()
       .split("# References\n")[1]
       .split("\n")
       .reduce((acc, curr) => {
