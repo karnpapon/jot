@@ -63,27 +63,28 @@ export function Go() {
     const div = document.createElement("div");
     div.innerHTML = textVal.slice(0, to);
     document.body.appendChild(div);
-    animateScrollTo(jot.textarea_el, div.offsetHeight - 60, 200);
+    // animateScrollTo(jot.textarea_el, div.offsetHeight - 60, 200);
+    jot.textarea_el.scrollTop = div.offsetHeight - 60;
     div.remove();
   };
 
-  function animateScrollTo(element, to, duration) {
-    const start = element.scrollTop;
-    const change = to - start;
-    let currentTime = 0;
-    const increment = 20; // Equal to line-height
+  // function animateScrollTo(element, to, duration) {
+  //   const start = element.scrollTop;
+  //   const change = to - start;
+  //   let currentTime = 0;
+  //   const increment = 20; // Equal to line-height
 
-    const animate = function () {
-      currentTime += increment;
-      const val = Math.easeInOutQuad(currentTime, start, change, duration);
-      element.scrollTop = val;
-      // if (!jot.reader.active) jot.stats.on_scroll();
-      if (currentTime < duration) {
-        requestAnimationFrame(animate, increment);
-      }
-    };
-    requestAnimationFrame(animate);
-  }
+  //   const animate = function () {
+  //     currentTime += increment;
+  //     const val = Math.easeInOutQuad(currentTime, start, change, duration);
+  //     element.scrollTop = val;
+  //     jot.stats.on_scroll();
+  //     if (currentTime < duration) {
+  //       requestAnimationFrame(animate, increment);
+  //     }
+  //   };
+  //   requestAnimationFrame(animate);
+  // }
 
   // t = current time
   // b = start value
@@ -101,5 +102,3 @@ export function Go() {
     return v < min ? min : v > max ? max : v;
   }
 }
-
-// module.exports = Go

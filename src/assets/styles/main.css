@@ -72,7 +72,7 @@ body stats button.word-ref-btn { cursor: pointer;}
 body stats button.word-ref-btn:hover { color: var(--f_high)}
 body stats b.word-ref { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 100%;}
 
-body textarea { font-family: var(--font-family-semibold); padding: 30px 15px 0; height: calc(100vh - 66px); display: block; width: 100%; position: fixed; left: 0; font-size: var(--font-size); line-height: var(--line-height); resize: none; background: transparent; overflow: auto; max-width: 90%; transition: left 200ms; }
+body textarea { font-family: var(--font-family-semibold); padding: 30px 15px 0; height: calc(100vh - 66px); display: block; width: 70%; position: fixed; left: 0; font-size: var(--font-size); line-height: var(--line-height); resize: none; background: transparent; overflow: auto; transition: left 200ms; }
 body div.textarea {  line-height: var(--line-height); font-family: var(--font-family-semibold); font-size: var(--font-size); white-space: pre-wrap; word-wrap:break-word; }
 /* body div { font-family: var(--font-family); padding: 30px 15px 0; height: calc(100vh - 90px); display: block; width: 80ch; position: fixed; left: 25vw; font-size: var(--font-size); line-height: var(--line-height); resize: none; background: transparent; overflow: auto; max-width: 90%; transition: left 200ms; margin-left:-15px; } */
 body drag { display: block;width: 100vw;height: 30px;position: fixed;top: 0px;-webkit-user-select: none;-webkit-app-region: drag; background-color: transparent !important;}
@@ -84,14 +84,14 @@ body #operator.active { bottom:0px; }
 * { background-color: inherit; }
 
 main { display: flex; }
-/* main navi { flex: 1.5;} */
-main div { flex: 4; width: 100%;}
+main div.hlta-container { position: fixed; transform: translateX(165px); transition: transform 200ms; width: 100%;}
+/* main div.hlta-container > * { transition: transform 200ms;  } */
 
-body.mobile navi { opacity:0; transition: opacity 10ms; padding: 0px 0px 0px 0px;}
-body.mobile textarea { width: 100vw; left: 0%; transition: left 200ms; transition-delay: 20ms; }
-body.mobile stats { width: 85%; left: 5%; transition: left 200ms; transition-delay: 20ms; }
+/* body.mobile navi > div { opacity:0; transition: opacity 5ms; padding: 0px 0px 0px 0px; pointer-events: none;} */
+body.mobile navi > div { pointer-events: none;}
+body.mobile stats { width: 85%; }
 body.mobile div { width: 100%; }
-body.mobile navi > div { width: 0; padding: 0;}
+body.mobile div.hlta-container { transform: translateX(0) }
 body.mobile #operator { width: 85%; left: 5%; }
 
 body #theme_button { width: 40px;height: 40px;position: fixed;right: 0px;bottom: 0px;overflow: hidden; cursor: pointer; opacity: 0; transition: opacity 500ms }
