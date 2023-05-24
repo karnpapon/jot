@@ -124,14 +124,14 @@ export function Stats() {
   };
 
   this._reference = function (ref) {
-    let ref_data = jot.project.page().get_referece_data_obj();
+    let ref_data = jot.project.page().get_referece_data_obj(ref);
     if (!ref_data) {
       return `<b>[Warning]:</b>&nbsp;no '# References' section`;
     }
     if (!ref_data[ref]) {
-      return `<b>[Warning]:</b>&nbsp;please check if reference number existed or matched.`;
+      return `<b>[Warning]:</b>&nbsp;please check if reference number is existed or matched.`;
     }
-    return `Reference ${ref_data[ref].ref_superscript}: &nbsp;<b>${ref_data[ref].ref_text}</b>`;
+    return `<button class="word-ref-btn" title="go to reference" onclick='jot.go.to_line(${ref_data[ref].ref_line})'>Ref ${ref_data[ref].ref_superscript}:</button> &nbsp;<b class="word-ref">${ref_data[ref].ref_text}</b>`;
   };
 
   this.on_scroll = function () {

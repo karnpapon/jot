@@ -130,7 +130,8 @@ export function Page(text = "", path = null) {
     return a;
   };
 
-  this.get_referece_data_obj = function () {
+  this.get_referece_data_obj = function (_ref) {
+    const ref_sup = "⁰¹²³⁴⁵⁶⁷⁸⁹"[_ref];
     function digitFromSuperscript(superChar) {
       var result = "⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(superChar);
       if (result > -1) {
@@ -150,22 +151,68 @@ export function Page(text = "", path = null) {
 
     const lines = this.text
       .trimEnd()
-      .split("# References\n")[1]
+      .split("# References\n")
+      .get_at(1, `${ref_sup} [error]: reference number ${_ref} is undefined.`)
       .split("\n")
-      .reduce((acc, curr) => {
-        let ref_superscript = curr.match(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/i)[0];
-        const int_from_superscripts = ref_superscript
-          .split("")
-          .map(digitFromSuperscript);
-        const ref_num = int_from_superscripts
-          .map((num, i) => to_base10(int_from_superscripts, num, i))
-          .reduce((acc, curr) => (acc = curr + acc));
+      .reduce(
+        ({ obj, ref_line }, curr) => {
+          let ref_superscript = curr.match(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/i)[0];
+          const int_from_superscripts = ref_superscript
+            .split("")
+            .map(digitFromSuperscript);
+          const ref_num = int_from_superscripts
+            .map((num, i) => to_base10(int_from_superscripts, num, i))
+            .reduce((a, c) => (a = c + a));
 
-        acc[ref_num] = {};
-        acc[ref_num]["ref_text"] = curr.split(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/i)[1];
-        acc[ref_num]["ref_superscript"] = ref_superscript;
-        return acc;
-      }, {});
-    return lines;
+          ++ref_line;
+          obj[ref_num] = {};
+          obj[ref_num]["ref_text"] = curr.split(/[⁰¹²³⁴⁵⁶⁷⁸⁹]+/i)[1];
+          obj[ref_num]["ref_superscript"] = ref_superscript;
+          obj[ref_num]["ref_line"] = ref_line;
+          return { obj, ref_line };
+        },
+        { obj: {}, ref_line: refs[0].line }
+      );
+    return lines["obj"];
   };
+}
+
+export function get(value, query, defaultVal = undefined) {
+  const splitQuery = Array.isArray(query)
+    ? query
+    : query
+        .replace(/(\[(\d)\])/g, ".$2")
+        .replace(/^\./, "")
+        .split(".");
+
+  if (!splitQuery.length || splitQuery[0] === undefined) return value;
+
+  const key = splitQuery[0];
+
+  if (
+    typeof value !== "object" ||
+    value === null ||
+    !(key in value) ||
+    value[key] === undefined
+  ) {
+    return defaultVal;
+  }
+
+  return get(value[key], splitQuery.slice(1), defaultVal);
+}
+
+// prevent unintentional enumeration eg. for..in
+if (!Array.prototype.get_at) {
+  Object.defineProperty(Array.prototype, "get_at", {
+    enumerable: false,
+    writable: false,
+    configurable: false,
+    value: function get_at(arr_index, handle_err) {
+      var res = this[arr_index];
+      if (!res) {
+        return handle_err;
+      }
+      return res;
+    },
+  });
 }

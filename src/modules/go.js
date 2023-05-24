@@ -21,6 +21,7 @@ export function Go() {
   this.to_line = function (id) {
     const lineArr = jot.textarea_el.value.split(EOL, parseInt(id) + 1);
     const arrJoin = lineArr.join(EOL);
+    if (!lineArr[id]) return;
     const from = arrJoin.length - lineArr[id].length;
     const to = arrJoin.length;
 
