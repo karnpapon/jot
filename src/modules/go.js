@@ -68,24 +68,6 @@ export function Go() {
     div.remove();
   };
 
-  // function animateScrollTo(element, to, duration) {
-  //   const start = element.scrollTop;
-  //   const change = to - start;
-  //   let currentTime = 0;
-  //   const increment = 20; // Equal to line-height
-
-  //   const animate = function () {
-  //     currentTime += increment;
-  //     const val = Math.easeInOutQuad(currentTime, start, change, duration);
-  //     element.scrollTop = val;
-  //     jot.stats.on_scroll();
-  //     if (currentTime < duration) {
-  //       requestAnimationFrame(animate, increment);
-  //     }
-  //   };
-  //   requestAnimationFrame(animate);
-  // }
-
   // t = current time
   // b = start value
   // c = change in value

@@ -12,9 +12,6 @@ window.addEventListener("load", () => {
   const { event } = window.__TAURI__;
   const { listen } = event;
 
-  // var vim = new VIM();
-  // vim.attach_to(jot.textarea_el);
-
   listen("menu-file-new", ({ _ }) => jot.project.new());
   listen("menu-file-save", ({ _ }) => jot.project.save());
   listen("menu-file-save-as", ({ _ }) => jot.project.save_as());

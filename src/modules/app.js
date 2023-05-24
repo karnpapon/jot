@@ -5,7 +5,6 @@ import { Stats } from "./stat.js";
 import { Toolbar } from "./toolbar.js";
 import { Insert } from "./insert.js";
 import { Find } from "./find.js";
-import { Operator } from "./operator.js";
 import { Controller } from "./lib/controller.js";
 import { Theme } from "./lib/theme.js";
 
@@ -42,7 +41,6 @@ export function Jot() {
     this.stats = new Stats();
     this.insert = new Insert();
     this.toolbar = new Toolbar();
-    this.operator = new Operator();
     this.find = new Find();
 
     this.autoindent = true;
@@ -52,9 +50,6 @@ export function Jot() {
   this.install = function (host = document.body) {
     this.navi.install(this.textarea_and_navi_el);
     this.textarea_and_navi_el.appendChild(this.textarea_el);
-    this.operator.install(host);
-
-    // host.appendChild(this.find_btn);
     host.appendChild(this.textarea_and_navi_el);
     host.appendChild(this.drag_el);
 
@@ -83,8 +78,7 @@ export function Jot() {
   };
 
   this.start = function () {
-    // this.theme.start();
-    this.theme.load(this.theme.active);
+    this.theme.start();
     this.project.start();
     this.go.to_page();
 
@@ -271,7 +265,6 @@ export function Jot() {
 
   this.reset = () => {
     this.theme.reset();
-    // this.font.reset()
     this.update();
   };
 

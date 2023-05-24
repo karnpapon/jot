@@ -10,6 +10,7 @@
 - writing-focus only
 - quick inserts
 - quick word referencing
+- support extensions `.txt`, `.md`, `.doc`, `.docx`, `.rft`, `.rtf`
 
 # download
 
@@ -53,3 +54,7 @@
 - `Cmd+/` : Comment
 
 ¹will create marker at navigator
+
+## QA
+
+- <details><summary>is this WYSIWYG editor?</summary>it intentionally designed to focus on distractionless writing, thus <code>textarea</code> is being used. in this sense, <code>jot</code> is NOT a WYSIWYG editor.</details>

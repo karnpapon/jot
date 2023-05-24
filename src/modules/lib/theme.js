@@ -36,11 +36,18 @@ export function Theme(_default) {
 
   this.start = function () {
     console.log("Theme", "Starting..");
-    if (isJson(localStorage.theme)) {
+    if (localStorage.is_dark_theme === undefined) {
+      this.load(this.light);
+      localStorage.setItem("is_dark_theme", false);
+      return;
+    }
+
+    if (isJson(localStorage.theme) && isJson(localStorage.is_dark_theme)) {
       const storage = JSON.parse(localStorage.theme);
+      const storage_is_dark_theme = JSON.parse(localStorage.is_dark_theme);
       if (validate(storage)) {
         console.log("Theme", "Loading localStorage..");
-        this.load(storage);
+        this.load(storage_is_dark_theme ? this.dark : this.light);
         return;
       }
     }
@@ -204,7 +211,11 @@ export function Theme(_default) {
   }
 
   this.toggleTheme = function () {
-    this.is_dark_theme = !this.is_dark_theme;
-    this.load(this.is_dark_theme ? this.dark : this.light);
+    localStorage.setItem(
+      "is_dark_theme",
+      JSON.stringify(!JSON.parse(localStorage.is_dark_theme))
+    );
+    const is_dark_theme = JSON.parse(localStorage.is_dark_theme);
+    this.load(is_dark_theme ? this.dark : this.light);
   };
 }
