@@ -13,7 +13,6 @@ eg.
 ### marker
 
 for word referencing (eg. anyword¹), use ^ follow by any number eg. word^1 and type Cmd+Shift+6 (make sure the cursor is within the target word) it will be converted to 'word¹' and append the reference to the end of the file.
-example. put cursor anythere within anyword¹ you'll see footer of the application show example reference notes
 
 # supported extensions
 - .txt
@@ -54,7 +53,7 @@ View sources: https://github.com/karnpapon/jot
   this.disabled = true;
 
   this.name = function () {
-    return "Helper";
+    return "helpers";
   };
 
   this.has_changes = function () {
