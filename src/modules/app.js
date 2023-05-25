@@ -5,7 +5,6 @@ import { Stats } from "./stat.js";
 import { Toolbar } from "./toolbar.js";
 import { Insert } from "./insert.js";
 import { Find } from "./find.js";
-import { Controller } from "./lib/controller.js";
 import { Theme } from "./lib/theme.js";
 
 const EOL = "\n";
@@ -23,18 +22,7 @@ export function Jot() {
   };
 
   this.init = function () {
-    this.theme = new Theme({
-      background: "#ffffff",
-      f_high: "#393B3F",
-      f_med: "#808790",
-      f_low: "#A3A3A4",
-      f_inv: "#000000",
-      b_high: "#333333",
-      b_med: "#777777",
-      b_low: "#DDDDDD",
-      b_inv: "#ffffff",
-    });
-    this.controller = new Controller();
+    this.theme = new Theme();
     this.project = new Project();
     this.go = new Go();
     this.navi = new Navi();

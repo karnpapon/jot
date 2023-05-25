@@ -27,7 +27,7 @@ body navi > div li.subheader { padding-left: 20px;}
 body navi > div li.subheader::before { content:""; left:0px; }
 body navi > div li.h3 { padding-left: 30px;}
 body navi > div li.h3::before { content:""; left:0px; }
-body navi > div li.changes::after { content:"*"; position: absolute; right: 0;  width: 12%;}
+body navi > div li.changes::after { content:"*"; position: absolute; right: 0;  width: 14%; display: flex; justify-content: center; align-items: center; background-color: var(--background);}
 body navi > div li i { padding-right:15px; }
 body navi > div ul > div { width: auto; margin-left: 5px; width: 90%;}
 body navi > div > ul::after { 

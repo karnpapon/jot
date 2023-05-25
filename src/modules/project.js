@@ -29,8 +29,6 @@ export function Project() {
   this.add = async function (path = null) {
     console.log(`Adding page(${path})`);
 
-    // this.remove_helper();
-
     let page = new Page();
 
     if (path) {
@@ -190,6 +188,7 @@ export function Project() {
         setTimeout(() => {
           jot.stats.el.innerHTML = `<b>Saved</b> ${page.path}`;
         }, 200);
+        localStorage.setItem("paths", JSON.stringify(this.paths()));
       })
       .catch((err) => {
         alert("An error ocurred creating the file " + err.message);

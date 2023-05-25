@@ -4,13 +4,11 @@ export function Insert() {
   this.is_active = false;
 
   this.start = function () {
-    jot.controller.set("insert");
     this.is_active = true;
     jot.update();
   };
 
   this.stop = function () {
-    jot.controller.set("default");
     this.is_active = false;
     jot.update();
   };

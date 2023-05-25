@@ -1,17 +1,6 @@
 document.onkeydown = function keyDown(e) {
   jot.last_char = e.key;
 
-  // Faster than Electron
-  // if (e.keyCode === 9) {
-  //   if (e.shiftKey) {
-  //     jot.stats.nextSynonym();
-  //   } else {
-  //     jot.select_autocomplete();
-  //   }
-  //   e.preventDefault();
-  //   return;
-  // }
-
   if (e.metaKey || e.ctrlKey) {
     if (e.key === "]") {
       jot.navi.next_marker();
