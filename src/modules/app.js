@@ -1,7 +1,7 @@
 import { Project } from "./project.js";
 import { Go } from "./go.js";
 import { Navi } from "./navi.js";
-import { Stats } from "./stat.js";
+import { Status } from "./status.js";
 import { Toolbar } from "./toolbar.js";
 import { Insert } from "./insert.js";
 import { Find } from "./find.js";
@@ -9,7 +9,7 @@ import { Theme } from "./lib/theme.js";
 
 const EOL = "\n";
 
-const { shell } = window.__TAURI__;
+const { shell, invoke } = window.__TAURI__;
 const { open } = shell;
 
 export function Jot() {
@@ -17,16 +17,28 @@ export function Jot() {
   this.drag_el = document.createElement("drag");
   this.drag_el.setAttribute("data-tauri-drag-region", "");
   this.textarea_and_navi_el = document.createElement("main");
+  this.is_page_selected = false;
+  this.current_file_path = "";
   this.state = {
     find: false,
   };
+
+  this.textarea_and_navi_el.addEventListener("click", () => {
+    if (jot.project.index === 0) {
+      jot.is_page_selected = false;
+    }
+  });
+
+  this.textarea_el.addEventListener("click", () => {
+    jot.is_page_selected = false;
+  });
 
   this.init = function () {
     this.theme = new Theme();
     this.project = new Project();
     this.go = new Go();
     this.navi = new Navi();
-    this.stats = new Stats();
+    this.stats = new Status();
     this.insert = new Insert();
     this.toolbar = new Toolbar();
     this.find = new Find();
@@ -274,6 +286,18 @@ export function Jot() {
     this.state.find = !this.state.find;
     if (!this.state.find) {
       hilite.clear();
+    }
+  };
+
+  this.open_file_path = async function () {
+    if (!this.current_file_path) {
+      return;
+    }
+    try {
+      await invoke("show_in_folder", { path: this.current_file_path });
+    } catch (err) {
+      console.warn(`Could not open file`);
+      return;
     }
   };
 }

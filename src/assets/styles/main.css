@@ -68,8 +68,8 @@ body stats .right { float: right; }
 body stats ul { height: 100%; display: inline; overflow: scroll; white-space: nowrap; }
 body stats li { display: inline; margin-right: 10px; }
 body stats li.active { text-decoration: underline; font-weight: bold; }
-body stats button.word-ref-btn { cursor: pointer;}
-body stats button.word-ref-btn:hover { color: var(--f_high)}
+body stats button.word-ref-btn, body stats b.word-ref-btn { cursor: pointer;}
+body stats button.word-ref-btn:hover, body stats b.word-ref-btn { color: var(--f_high)}
 body stats b.word-ref { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 100%;}
 
 body textarea { font-family: var(--font-family-semibold); padding: 30px 15px 0; height: calc(100vh - 66px); display: block; width: 70%; position: fixed; left: 0; font-size: var(--font-size); line-height: var(--line-height); resize: none; background: transparent; overflow: auto; transition: left 200ms; }

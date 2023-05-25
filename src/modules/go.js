@@ -2,6 +2,10 @@ const EOL = "\n";
 
 export function Go() {
   this.to_page = function (id = 0, line = 0) {
+    const _paths = JSON.parse(localStorage.paths);
+    const path = id === 0 ? "" : _paths[id - 1];
+    jot.current_file_path = path; // store current file dir
+
     jot.project.index = clamp(parseInt(id), 0, jot.project.pages.length - 1);
 
     console.log(`Go to page:${jot.project.index}/${jot.project.pages.length}`);
@@ -12,7 +16,6 @@ export function Go() {
       console.warn("Missing page", this.index);
       return;
     }
-
     jot.load(page.text, page.disabled);
     jot.go.to_line(line);
     jot.update();

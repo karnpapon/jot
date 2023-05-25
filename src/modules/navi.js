@@ -2,6 +2,9 @@ export function Navi() {
   this.el = document.createElement("navi");
   this.child_el = document.createElement("div");
   this.el.appendChild(this.child_el);
+  this.el.addEventListener("click", () => {
+    jot.is_page_selected = true;
+  });
 
   this.install = function (host) {
     host.appendChild(this.el);
@@ -16,9 +19,9 @@ export function Navi() {
       if (!page) {
         continue;
       }
-      html += `<ul class="${
-        jot.project.index === parseInt(pid) ? "active" : ""
-      }">`;
+      const is_active = jot.project.index === parseInt(pid);
+
+      html += `<ul class="${is_active ? "active" : ""}">`;
       html += `${
         parseInt(pid) > 0
           ? `<button title="remove" onclick='jot.project.remove(${parseInt(
@@ -28,9 +31,7 @@ export function Navi() {
       }`;
       html += "<div>";
       html += await this._page(parseInt(pid), page);
-      html += `<div class="marker-wrapper ${
-        jot.project.index === parseInt(pid) ? "" : "hide"
-      }">`;
+      html += `<div class="marker-wrapper ${is_active ? "" : "hide"}">`;
       const markers = page.markers();
       for (const i in markers) {
         const marker = markers[i];
@@ -51,12 +52,12 @@ export function Navi() {
   };
 
   this._marker = function (pid, current, marker, markers) {
-    return `<li class='marker ${marker.type} ${
+    const is_active =
       current &&
       current.line === marker.line &&
-      parseInt(pid) === parseInt(jot.project.index)
-        ? "active"
-        : ""
+      parseInt(pid) === parseInt(jot.project.index);
+    return `<li class='marker ${marker.type} ${
+      is_active ? "active" : ""
     }' onclick='jot.go.to_page(${pid}, ${marker.line})'><span>${
       marker.text
     }</span></li>`;

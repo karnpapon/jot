@@ -9,7 +9,7 @@ use std::path::Path;
 use crate::lib::conf::AppConf;
 use crate::lib::setup;
 // use std::borrow::Borrow;
-// use std::sync::Mutex;
+use std::process::Command;
 use tauri::{
   AboutMetadata, Assets, Context, CustomMenuItem, Manager, Menu, MenuItem, Submenu, Window,
   WindowMenuEvent,
@@ -28,6 +28,51 @@ fn fs_read_file(filename: &str) -> Result<String, String> {
   }
 
   Ok("fs_read_file::no_file_exist".to_string())
+}
+
+#[tauri::command]
+fn show_in_folder(path: String) {
+  #[cfg(target_os = "windows")]
+  {
+    Command::new("explorer")
+      .args(["/select,", &path]) // The comma after select is not a typo
+      .spawn()
+      .unwrap();
+  }
+
+  #[cfg(target_os = "linux")]
+  {
+    if path.contains(",") {
+      // see https://gitlab.freedesktop.org/dbus/dbus/-/issues/76
+      let new_path = match metadata(&path).unwrap().is_dir() {
+        true => path,
+        false => {
+          let mut path2 = PathBuf::from(path);
+          path2.pop();
+          path2.into_os_string().into_string().unwrap()
+        }
+      };
+      Command::new("xdg-open").arg(&new_path).spawn().unwrap();
+    } else {
+      Command::new("dbus-send")
+        .args([
+          "--session",
+          "--dest=org.freedesktop.FileManager1",
+          "--type=method_call",
+          "/org/freedesktop/FileManager1",
+          "org.freedesktop.FileManager1.ShowItems",
+          format!("array:string:\"file://{path}\"").as_str(),
+          "string:\"\"",
+        ])
+        .spawn()
+        .unwrap();
+    }
+  }
+
+  #[cfg(target_os = "macos")]
+  {
+    Command::new("open").args(["-R", &path]).spawn().unwrap();
+  }
 }
 
 // #[tauri::command]
@@ -223,11 +268,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
   tauri::Builder::default()
     .setup(setup::init)
     .menu(menu(&context))
-    .manage(JotApp {
-      // osc_states: Default::default(),
-      // midi_states: Default::default(),
-    })
-    .invoke_handler(tauri::generate_handler![fs_read_file])
+    .manage(JotApp {})
+    .invoke_handler(tauri::generate_handler![fs_read_file, show_in_folder])
     .plugin(tauri_plugin_fs_extra::init())
     .on_menu_event(on_ready)
     .run(context)

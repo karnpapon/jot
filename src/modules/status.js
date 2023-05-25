@@ -1,6 +1,6 @@
 const EOL = "\n";
 
-export function Stats() {
+export function Status() {
   this.el = document.createElement("stats");
 
   this.install = function (host) {
@@ -10,6 +10,11 @@ export function Stats() {
   this.update = function (special = "") {
     if (jot.insert.is_active) {
       this.el.innerHTML = `<div/>`;
+      return;
+    }
+    if (jot.is_page_selected) {
+      this.el.innerHTML = "";
+      this.el.innerHTML = this._file_path();
       return;
     }
     if (jot.state.find) {
@@ -114,6 +119,13 @@ export function Stats() {
     return `<b>[${jot.textarea_el.selectionStart},${
       jot.textarea_el.selectionEnd
     }]&nbsp;</b> ${this._default()}`;
+  };
+
+  this._file_path = function () {
+    const path = jot.current_file_path;
+    return `<button class="word-ref-btn" title="open file directory" onclick='jot.open_file_path()'>${
+      path ?? ""
+    }</button>`;
   };
 
   this._url = function () {
