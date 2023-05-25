@@ -5,7 +5,6 @@ export function Page(text = "", path = null) {
   this.text = text.replace(/\r?\n/g, "\n");
   this.path = path;
   this.size = 0;
-  this.watchdog = true;
   this.disabled = false;
 
   this.name = function () {
@@ -30,20 +29,15 @@ export function Page(text = "", path = null) {
     const ret = _ret !== this.text;
 
     // was this change done outside Jot?
-    if (ret && last_size !== this.size && this.watchdog) {
-      const response = dialog
-        .message("File was modified outside Jot. Do you want to reload it?", {
-          type: "info",
-          title: "Confirm",
-          // detail: `New size of file is: ${this.size} bytes.`,
-        })
-        .then(async (res) => {
-          if (response === 0) {
-            this.commit(await this.load());
-            jot.reload();
-            return !ret; // return false as it was reloaded
-          } else if (response === 2) this.watchdog = !this.watchdog;
-        });
+    if (ret && last_size !== this.size) {
+      const confirmed = await dialog.confirm(
+        "File was modified outside jot, do you want to reload it?"
+      );
+      if (!confirmed) return ret;
+
+      this.commit(await this.load());
+      jot.reload();
+      return !ret;
     }
     return ret;
   };

@@ -53,7 +53,6 @@ export function Jot() {
       this.stats.on_scroll();
     });
 
-    // Trigger update when selection changes
     this.textarea_el.addEventListener("select", (e) => {
       this.update();
     });
@@ -156,7 +155,7 @@ export function Jot() {
     const position = this.active_word_location();
     let from = position.from;
 
-    // // Find end of word
+    // Find end of word
     let to = from + 1;
     while (to < from + 30) {
       const char = this.textarea_el.value[to];

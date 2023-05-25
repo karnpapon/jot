@@ -195,28 +195,6 @@ export function Project() {
       });
   };
 
-  this.close = function () {
-    if (this.pages.length === 1) {
-      console.warn("Cannot close");
-      return;
-    }
-
-    // if (this.page().has_changes()) {
-    //   const response = dialog.showMessageBoxSync(app.win, {
-    //     type: "question",
-    //     buttons: ["Yes", "No"],
-    //     title: "Confirm",
-    //     message: "Are you sure you want to discard changes?",
-    //     icon: `${app.getAppPath()}/icon.png`,
-    //   });
-    //   if (response !== 0) {
-    //     return;
-    //   }
-    // }
-    this.force_close();
-    localStorage.setItem("paths", JSON.stringify(this.paths()));
-  };
-
   this.force_close = function () {
     if (this.pages.length === 1) {
       this.quit();
@@ -229,19 +207,19 @@ export function Project() {
     jot.go.to_page(this.index - 1);
   };
 
-  this.discard = function () {
-    // const response = dialog.showMessageBoxSync(app.win, {
-    //   type: "question",
-    //   buttons: ["Yes", "No"],
-    //   title: "Confirm",
-    //   message: "Are you sure you want to discard changes?",
-    //   icon: `${app.getAppPath()}/icon.png`,
-    // });
-    if (response === 0) {
-      // Runs the following if 'Yes' is clicked
-      jot.reload(true);
-    }
-  };
+  // this.discard = function () {
+  //   // const response = dialog.showMessageBoxSync(app.win, {
+  //   //   type: "question",
+  //   //   buttons: ["Yes", "No"],
+  //   //   title: "Confirm",
+  //   //   message: "Are you sure you want to discard changes?",
+  //   //   icon: `${app.getAppPath()}/icon.png`,
+  //   // });
+  //   if (response === 0) {
+  //     // Runs the following if 'Yes' is clicked
+  //     jot.reload(true);
+  //   }
+  // };
 
   this.has_changes = function () {
     for (const id in this.pages) {
