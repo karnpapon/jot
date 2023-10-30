@@ -2,7 +2,7 @@ const EOL = "\n";
 
 export function Go() {
   this.to_page = function (id = 0, line = 0) {
-    const _paths = JSON.parse(localStorage.paths);
+    const _paths = localStorage.paths ? JSON.parse(localStorage.paths) : "";
     const path = id === 0 ? "" : _paths[id - 1];
     jot.current_file_path = path; // store current file dir
 
